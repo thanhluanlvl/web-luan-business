@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { PDFDocument } from 'pdf-lib';
-import { FileUp, FileSignature, Files, Scissors, AlertCircle, X } from 'lucide-react';
+import { FileUp, FileSignature, Files, Scissors, AlertCircle, X, FileText } from 'lucide-react';
 import './PdfTools.css';
 
 const PdfTools = () => {
@@ -8,6 +8,7 @@ const PdfTools = () => {
   const [files, setFiles] = useState([]);
   const [splitFile, setSplitFile] = useState(null);
   const [pageRange, setPageRange] = useState('');
+  const [convertToDocxFile, setConvertToDocxFile] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [error, setError] = useState('');
 
@@ -37,6 +38,16 @@ const PdfTools = () => {
 
   const removeFile = (indexToRemove) => {
     setFiles(files.filter((_, index) => index !== indexToRemove));
+  };
+
+  const handleConvertToDocxFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file && file.type === 'application/pdf') {
+      setConvertToDocxFile(file);
+      setError('');
+    } else {
+      setError('Vui lòng chọn 1 file định dạng PDF.');
+    }
   };
 
   const mergePdfs = async () => {
@@ -124,6 +135,42 @@ const PdfTools = () => {
     }
   };
 
+  const convertToDocx = async () => {
+    if (!convertToDocxFile) {
+      setError('Vui lòng chọn 1 file PDF để chuyển đổi.');
+      return;
+    }
+
+    setIsProcessing(true);
+    setError('');
+
+    const formData = new FormData();
+    formData.append('pdf', convertToDocxFile);
+
+    try {
+      const response = await fetch('http://localhost:3001/api/convert/pdf-to-docx', {
+        method: 'POST',
+        body: formData
+      });
+      
+      const data = await response.json();
+      
+      if (data.error) {
+        throw new Error(data.message || 'Lỗi từ máy chủ chuyển đổi.');
+      }
+      
+      if (data.url) {
+        // Mở link tải file DOCX từ ConvertAPI
+        window.location.href = data.url;
+      }
+    } catch (err) {
+      console.error(err);
+      setError(`Lỗi: ${err.message}`);
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
   const downloadBlob = (bytes, filename) => {
     const blob = new Blob([bytes], { type: 'application/pdf' });
     const url = URL.createObjectURL(blob);
@@ -150,13 +197,19 @@ const PdfTools = () => {
             className={`pdf-tab ${activeTab === 'merge' ? 'active' : ''}`}
             onClick={() => { setActiveTab('merge'); setError(''); }}
           >
-            <Files size={20} /> Gộp File PDF
+            <Files size={20} /> Gộp File
           </button>
           <button 
             className={`pdf-tab ${activeTab === 'split' ? 'active' : ''}`}
             onClick={() => { setActiveTab('split'); setError(''); }}
           >
-            <Scissors size={20} /> Tách Trang PDF
+            <Scissors size={20} /> Tách Trang
+          </button>
+          <button 
+            className={`pdf-tab ${activeTab === 'to-docx' ? 'active' : ''}`}
+            onClick={() => { setActiveTab('to-docx'); setError(''); }}
+          >
+            <FileText size={20} /> Sang Word
           </button>
         </div>
 
@@ -250,6 +303,37 @@ const PdfTools = () => {
                 disabled={!splitFile || !pageRange || isProcessing}
               >
                 {isProcessing ? 'Đang cắt trang...' : <><Scissors size={18} /> Cắt và Tải Xuống File Mới</>}
+              </button>
+            </div>
+          )}
+
+          {/* TO DOCX TAB */}
+          {activeTab === 'to-docx' && (
+            <div className="pdf-tab-content">
+              <h3>Chuyển đổi PDF sang Word (DOCX) siêu chuẩn xác</h3>
+              <p style={{color: '#cbd5e1', marginBottom: '2rem'}}>Sử dụng công nghệ AI OCR mạnh mẽ nhất để giữ nguyên 100% bố cục, bảng biểu và phông chữ của tài liệu gốc.</p>
+              
+              <div className="upload-zone">
+                <input 
+                  type="file" 
+                  id="docx-upload" 
+                  accept=".pdf" 
+                  onChange={handleConvertToDocxFileChange} 
+                />
+                <label htmlFor="docx-upload" className="upload-label">
+                  <FileUp size={48} className="upload-icon" />
+                  <span>Bấm vào đây để chọn 1 file PDF</span>
+                  <small className="file-selected-name">{convertToDocxFile ? `Đã chọn: ${convertToDocxFile.name}` : 'Chưa chọn file nào'}</small>
+                </label>
+              </div>
+
+              <button 
+                className="btn-action" 
+                onClick={convertToDocx} 
+                disabled={!convertToDocxFile || isProcessing}
+                style={{ background: 'linear-gradient(135deg, #2563eb, #3b82f6)' }}
+              >
+                {isProcessing ? 'Đang gửi lên mây để chuyển đổi...' : <><FileText size={18} /> Bắt Đầu Chuyển Sang Word</>}
               </button>
             </div>
           )}
