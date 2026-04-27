@@ -30,8 +30,9 @@ const Chatbot = () => {
     setIsTyping(true);
 
     try {
-      // Sử dụng máy chủ trung gian (Backend localhost:3001) để vượt rào bảo mật CORS của trình duyệt
-      const proxyUrl = 'http://localhost:3001/api/chat'; 
+      // Tự động phát hiện: localhost hay Vercel
+      const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+      const proxyUrl = isLocal ? 'http://localhost:3001/api/chat' : '/api/chat'; 
       
       const response = await fetch(proxyUrl, {
         method: 'POST',
