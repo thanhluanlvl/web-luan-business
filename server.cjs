@@ -171,6 +171,79 @@ app.post('/api/chat', (req, res) => {
     request.end();
 });
 
+// API: Chuyển đổi PDF sang DOCX bằng Adobe PDF Services (500 lượt miễn phí/tháng)
+const {
+    ServicePrincipalCredentials,
+    PDFServices,
+    MimeType,
+    ExportPDFJob,
+    ExportPDFParams,
+    ExportPDFTargetFormat
+} = require('@adobe/pdfservices-node-sdk');
+
+app.post('/api/convert/pdf-to-docx', upload.single('pdf'), async (req, res) => {
+    if (!req.file) return res.status(400).json({ error: true, message: 'Không tìm thấy file tải lên.' });
+    
+    let outputPath = null;
+    try {
+        // 1. Khởi tạo chứng chỉ Adobe
+        const credentials = new ServicePrincipalCredentials({
+            clientId: '733e7b1fd2194ec2bf028d375978f04d',
+            clientSecret: 'p8e-Wx1rvvQXA94KFmOtHr_-CdeqUbpBWm_-'
+        });
+
+        const pdfServices = new PDFServices({ credentials });
+
+        // 2. Tải file PDF lên Adobe Cloud
+        const readStream = fs.createReadStream(req.file.path);
+        const inputAsset = await pdfServices.upload({
+            readStream,
+            mimeType: MimeType.PDF
+        });
+
+        // 3. Tạo lệnh chuyển đổi sang DOCX
+        const params = new ExportPDFParams({
+            targetFormat: ExportPDFTargetFormat.DOCX
+        });
+        const job = new ExportPDFJob({ inputAsset, params });
+
+        // 4. Thực thi và chờ kết quả
+        const pollingURL = await pdfServices.submit({ job });
+        const jobResult = await pdfServices.getJobResult({
+            pollingURL,
+            resultType: ExportPDFJob.Result
+        });
+
+        // 5. Lưu file DOCX kết quả
+        const resultAsset = jobResult.result.asset;
+        const streamAsset = await pdfServices.getContent({ asset: resultAsset });
+        
+        outputPath = path.join(__dirname, 'public', 'uploads', `converted_${Date.now()}.docx`);
+        const writeStream = fs.createWriteStream(outputPath);
+
+        await new Promise((resolve, reject) => {
+            streamAsset.readStream.pipe(writeStream);
+            writeStream.on('finish', resolve);
+            writeStream.on('error', reject);
+        });
+
+        // 6. Gửi file DOCX về cho người dùng
+        const fileName = req.file.originalname.replace('.pdf', '').replace('.PDF', '') + '_converted.docx';
+        res.download(outputPath, fileName, () => {
+            // Dọn dẹp file rác sau khi gửi xong
+            fs.unlink(req.file.path, () => {});
+            fs.unlink(outputPath, () => {});
+        });
+
+    } catch (e) {
+        console.error('Adobe PDF Services Error:', e);
+        // Dọn dẹp file rác khi lỗi
+        if (req.file?.path) fs.unlink(req.file.path, () => {});
+        if (outputPath) fs.unlink(outputPath, () => {});
+        res.status(500).json({ error: true, message: e.message || 'Lỗi trong quá trình chuyển đổi.' });
+    }
+});
+
 app.listen(PORT, () => {
     console.log(`Backend server running on http://localhost:${PORT}`);
 });

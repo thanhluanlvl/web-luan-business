@@ -1,14 +1,7 @@
 import React, { useState } from 'react';
 import { PDFDocument } from 'pdf-lib';
-import * as pdfjsLib from 'pdfjs-dist';
-import { Document, Packer, Paragraph, TextRun, PageBreak, HeadingLevel } from 'docx';
-import { saveAs } from 'file-saver';
 import { FileUp, FileSignature, Files, Scissors, AlertCircle, X, FileText } from 'lucide-react';
 import './PdfTools.css';
-
-// Cấu hình worker cho PDF.js (tải trực tiếp từ thư viện, không qua CDN)
-import pdfjsWorker from 'pdfjs-dist/build/pdf.worker.min.mjs?url';
-pdfjsLib.GlobalWorkerOptions.workerSrc = pdfjsWorker;
 
 const PdfTools = () => {
   const [activeTab, setActiveTab] = useState('merge');
@@ -71,7 +64,7 @@ const PdfTools = () => {
         copiedPages.forEach((page) => mergedPdf.addPage(page));
       }
       const mergedPdfBytes = await mergedPdf.save();
-      downloadBlob(mergedPdfBytes, 'TaiLieuGop_WebLuan.pdf');
+      downloadBlob(mergedPdfBytes, 'TaiLieuGop_WebLuan.pdf', 'application/pdf');
     } catch (err) {
       console.error(err);
       setError('Có lỗi xảy ra trong quá trình gộp file. Đảm bảo file PDF không bị khóa mật khẩu.');
@@ -119,7 +112,7 @@ const PdfTools = () => {
       const copiedPages = await newPdf.copyPages(pdfDoc, sortedIndices);
       copiedPages.forEach((page) => newPdf.addPage(page));
       const newPdfBytes = await newPdf.save();
-      downloadBlob(newPdfBytes, 'TaiLieuTach_WebLuan.pdf');
+      downloadBlob(newPdfBytes, 'TaiLieuTach_WebLuan.pdf', 'application/pdf');
     } catch (err) {
       console.error(err);
       setError(`Lỗi: ${err.message || 'Không thể tách file.'}`);
@@ -128,7 +121,7 @@ const PdfTools = () => {
     }
   };
 
-  // ====== CHUYỂN ĐỔI PDF SANG DOCX (100% CLIENT-SIDE, MIỄN PHÍ KHÔNG GIỚI HẠN) ======
+  // ====== CHUYỂN ĐỔI PDF SANG DOCX (Adobe PDF Services - 500 lượt miễn phí/tháng) ======
   const convertToDocx = async () => {
     if (!convertToDocxFile) {
       setError('Vui lòng chọn 1 file PDF để chuyển đổi.');
@@ -136,101 +129,48 @@ const PdfTools = () => {
     }
     setIsProcessing(true);
     setError('');
-    setProgressText('Đang đọc file PDF...');
+    setProgressText('Đang tải file lên máy chủ Adobe...');
 
     try {
-      const arrayBuffer = await convertToDocxFile.arrayBuffer();
-      const pdfDoc = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
-      const totalPages = pdfDoc.numPages;
-      const docChildren = [];
+      const formData = new FormData();
+      formData.append('pdf', convertToDocxFile);
 
-      for (let pageNum = 1; pageNum <= totalPages; pageNum++) {
-        setProgressText(`Đang xử lý trang ${pageNum}/${totalPages}...`);
-        const page = await pdfDoc.getPage(pageNum);
-        const textContent = await page.getTextContent();
-
-        // Nhóm các text item theo dòng dựa trên vị trí Y
-        const lines = [];
-        let currentLine = [];
-        let lastY = null;
-
-        const sortedItems = textContent.items
-          .filter(item => item.str.trim() !== '' || item.str === ' ')
-          .sort((a, b) => {
-            const yDiff = b.transform[5] - a.transform[5];
-            if (Math.abs(yDiff) > 3) return yDiff;
-            return a.transform[4] - b.transform[4];
-          });
-
-        for (const item of sortedItems) {
-          const y = Math.round(item.transform[5]);
-          if (lastY !== null && Math.abs(lastY - y) > 3) {
-            if (currentLine.length > 0) lines.push(currentLine);
-            currentLine = [];
-          }
-          currentLine.push(item);
-          lastY = y;
-        }
-        if (currentLine.length > 0) lines.push(currentLine);
-
-        for (const line of lines) {
-          const textRuns = [];
-          for (const item of line) {
-            const fontSize = Math.round(item.transform[0]) || 12;
-            const isBold = item.fontName?.toLowerCase().includes('bold') || false;
-            const isItalic = item.fontName?.toLowerCase().includes('italic') ||
-                            item.fontName?.toLowerCase().includes('oblique') || false;
-            textRuns.push(
-              new TextRun({
-                text: item.str,
-                bold: isBold,
-                italics: isItalic,
-                size: fontSize * 2,
-                font: 'Arial',
-              })
-            );
-          }
-
-          const maxFontSize = Math.max(...line.map(item => Math.round(item.transform[0]) || 12));
-          let heading = undefined;
-          if (maxFontSize >= 24) heading = HeadingLevel.HEADING_1;
-          else if (maxFontSize >= 18) heading = HeadingLevel.HEADING_2;
-          else if (maxFontSize >= 15) heading = HeadingLevel.HEADING_3;
-
-          docChildren.push(
-            new Paragraph({
-              children: textRuns,
-              heading: heading,
-              spacing: { after: 120 },
-            })
-          );
-        }
-
-        if (pageNum < totalPages) {
-          docChildren.push(new Paragraph({ children: [new PageBreak()] }));
-        }
-      }
-
-      setProgressText('Đang tạo file Word...');
-
-      const doc = new Document({
-        sections: [{ properties: {}, children: docChildren }],
+      const response = await fetch('http://localhost:3001/api/convert/pdf-to-docx', {
+        method: 'POST',
+        body: formData
       });
 
-      const blob = await Packer.toBlob(doc);
+      if (!response.ok) {
+        const errData = await response.json().catch(() => ({}));
+        throw new Error(errData.message || `Lỗi máy chủ: HTTP ${response.status}`);
+      }
+
+      setProgressText('Đang tải file Word về máy...');
+
+      // Nhận file DOCX dạng binary từ server
+      const blob = await response.blob();
       const originalName = convertToDocxFile.name.replace('.pdf', '').replace('.PDF', '');
-      saveAs(blob, `${originalName}_converted.docx`);
+      
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `${originalName}_converted.docx`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+
     } catch (err) {
       console.error(err);
-      setError(`Lỗi chuyển đổi: ${err.message || 'Không thể xử lý file PDF này.'}`);
+      setError(`Lỗi: ${err.message}`);
     } finally {
       setIsProcessing(false);
       setProgressText('');
     }
   };
 
-  const downloadBlob = (bytes, filename) => {
-    const blob = new Blob([bytes], { type: 'application/pdf' });
+  const downloadBlob = (bytes, filename, mimeType) => {
+    const blob = new Blob([bytes], { type: mimeType });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
@@ -245,7 +185,7 @@ const PdfTools = () => {
     <div className="pdf-tools-page animate-fade-in">
       <div className="pdf-header">
         <h1>Công Cụ Xử Lý <span className="text-highlight">PDF</span></h1>
-        <p>Xử lý tài liệu chớp nhoáng 100% trên thiết bị của bạn. Khẳng định bảo mật tuyệt đối, không lưu trữ trên máy chủ.</p>
+        <p>Xử lý tài liệu chớp nhoáng. Khẳng định bảo mật tuyệt đối.</p>
       </div>
 
       <div className="pdf-container">
@@ -329,9 +269,9 @@ const PdfTools = () => {
           {activeTab === 'to-docx' && (
             <div className="pdf-tab-content">
               <h3>Chuyển đổi PDF sang Word (DOCX)</h3>
-              <p style={{color: '#cbd5e1', marginBottom: '1rem'}}>Trích xuất toàn bộ nội dung văn bản từ PDF và tạo file Word có thể chỉnh sửa được. Xử lý 100% trên thiết bị của bạn — miễn phí, không giới hạn.</p>
+              <p style={{color: '#cbd5e1', marginBottom: '1rem'}}>Sử dụng công nghệ Adobe Acrobat — chuẩn xác tuyệt đối, giữ nguyên 100% bố cục, bảng biểu và phông chữ gốc. Miễn phí cho tất cả người dùng.</p>
               <div className="pdf-notice">
-                <span>💡</span> Phù hợp nhất với PDF chứa chữ (hợp đồng, báo cáo, luận văn...). PDF dạng ảnh scan cần OCR chuyên dụng.
+                <span>🏆</span> Powered by Adobe — Ông tổ phát minh ra định dạng PDF. Chất lượng chuyển đổi tốt nhất thế giới.
               </div>
               <div className="upload-zone">
                 <input type="file" id="docx-upload" accept=".pdf" onChange={handleConvertToDocxFileChange} />
@@ -342,8 +282,8 @@ const PdfTools = () => {
                 </label>
               </div>
               <button className="btn-action" onClick={convertToDocx} disabled={!convertToDocxFile || isProcessing}
-                style={{ background: 'linear-gradient(135deg, #2563eb, #3b82f6)' }}>
-                {isProcessing ? (progressText || 'Đang xử lý...') : <><FileText size={18} /> Bắt Đầu Chuyển Sang Word</>}
+                style={{ background: 'linear-gradient(135deg, #dc2626, #ea580c)' }}>
+                {isProcessing ? (progressText || 'Đang xử lý...') : <><FileText size={18} /> Chuyển Sang Word (Adobe)</>}
               </button>
             </div>
           )}
