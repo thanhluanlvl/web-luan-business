@@ -1,0 +1,266 @@
+.pdf-tools-page {
+  padding: 8rem 2rem 5rem;
+  min-height: 100vh;
+  background: var(--bg-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pdf-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  max-width: 600px;
+}
+
+.pdf-header h1 {
+  font-size: 2.5rem;
+  color: var(--white);
+  margin-bottom: 1rem;
+}
+
+.pdf-header p {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+}
+
+.pdf-container {
+  width: 100%;
+  max-width: 800px;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(0, 240, 255, 0.2);
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(0, 240, 255, 0.1);
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+}
+
+.pdf-tabs {
+  display: flex;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.pdf-tab {
+  flex: 1;
+  padding: 1.5rem;
+  background: rgba(0, 0, 0, 0.3);
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.3s;
+}
+
+.pdf-tab:hover {
+  background: rgba(0, 240, 255, 0.05);
+  color: white;
+}
+
+.pdf-tab.active {
+  background: transparent;
+  color: var(--secondary-color);
+  border-bottom: 2px solid var(--secondary-color);
+  box-shadow: inset 0 -20px 20px -20px rgba(234, 88, 12, 0.3);
+}
+
+.pdf-workspace {
+  padding: 2.5rem;
+}
+
+.pdf-tab-content h3 {
+  color: white;
+  margin-bottom: 1.5rem;
+  font-size: 1.3rem;
+}
+
+.pdf-error {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.5);
+  color: #fca5a5;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.upload-zone {
+  position: relative;
+  border: 2px dashed rgba(0, 240, 255, 0.3);
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.3);
+  transition: all 0.3s;
+  margin-bottom: 2rem;
+}
+
+.upload-zone:hover {
+  border-color: var(--primary-color);
+  background: rgba(0, 240, 255, 0.05);
+}
+
+.upload-zone input[type="file"] {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.upload-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 2rem;
+  gap: 1rem;
+  color: #cbd5e1;
+  pointer-events: none;
+  text-align: center;
+}
+
+.upload-icon {
+  color: var(--primary-color);
+  animation: pulse 2s infinite;
+}
+
+.upload-label span {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: white;
+}
+
+.file-selected-name {
+  color: var(--secondary-color);
+  font-weight: bold;
+}
+
+.file-list {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+}
+
+.file-list h4 {
+  color: #cbd5e1;
+  margin-bottom: 1rem;
+}
+
+.file-list ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.file-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  color: white;
+}
+
+.file-name {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.remove-btn {
+  background: none;
+  border: none;
+  color: #ef4444;
+  cursor: pointer;
+  display: flex;
+  padding: 0.2rem;
+  border-radius: 4px;
+  z-index: 20;
+}
+
+.remove-btn:hover {
+  background: rgba(239, 68, 68, 0.2);
+}
+
+.split-options {
+  margin-bottom: 2rem;
+}
+
+.split-options label {
+  display: block;
+  color: #cbd5e1;
+  margin-bottom: 0.8rem;
+  font-weight: 600;
+}
+
+.page-input {
+  width: 100%;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: white;
+  font-size: 1.1rem;
+  outline: none;
+  transition: all 0.3s;
+}
+
+.page-input:focus {
+  border-color: var(--secondary-color);
+  box-shadow: 0 0 10px rgba(234, 88, 12, 0.2);
+}
+
+.btn-action {
+  width: 100%;
+  padding: 1.2rem;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s;
+  box-shadow: 0 4px 15px rgba(234, 88, 12, 0.4);
+}
+
+.btn-action:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(234, 88, 12, 0.6);
+}
+
+.btn-action:disabled {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.4);
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.1); opacity: 0.7; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@media (max-width: 600px) {
+  .pdf-tools-page { padding: 6rem 1rem 3rem; }
+  .pdf-header h1 { font-size: 2rem; }
+  .pdf-tab { padding: 1rem; font-size: 1rem; }
+  .pdf-workspace { padding: 1.5rem; }
+  .upload-label { padding: 2rem 1rem; }
+}

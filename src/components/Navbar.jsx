@@ -19,6 +19,7 @@ const Navbar = () => {
           <li><Link to="/">Trang chủ</Link></li>
           <li><a href="#services">Dịch vụ</a></li>
           <li><a href="#projects">Dự án</a></li>
+          <li><Link to="/pdf-tools" style={{ color: 'var(--secondary-color)', fontWeight: 'bold' }}>Công cụ PDF</Link></li>
           <li><a href="#contact">Liên hệ</a></li>
           <li>
             <Link to="/admin" className="btn-primary" style={{ padding: '0.5rem 1rem', fontSize: '0.9rem' }}>
