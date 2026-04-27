@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "title": "Bảng hiệu Công ty ABC",
+    "category": "Thiết kế & Thi công",
+    "description": "Thiết kế và thi công bảng hiệu quảng cáo LED chuyên nghiệp cho công ty ABC tại Hải Phòng.",
+    "images": [
+      "/luan_storefront.png"
+    ],
+    "image": "/luan_storefront.png"
+  },
+  {
+    "id": 2,
+    "title": "Nâng cấp hệ thống PC Phòng Net",
+    "category": "Sửa máy tính",
+    "description": "Bảo trì, vệ sinh và nâng cấp linh kiện cho toàn bộ hệ thống PC tại phòng Net An Dương.",
+    "images": [
+      "/luan_repair_computer.png"
+    ],
+    "image": "/luan_repair_computer.png"
+  }
+]
