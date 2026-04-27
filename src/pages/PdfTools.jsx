@@ -135,7 +135,13 @@ const PdfTools = () => {
       const formData = new FormData();
       formData.append('pdf', convertToDocxFile);
 
-      const response = await fetch('http://localhost:3001/api/convert/pdf-to-docx', {
+      // Tự động phát hiện: chạy trên máy (localhost) hay trên mạng (Vercel)
+      const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+      const apiUrl = isLocal 
+        ? 'http://localhost:3001/api/convert/pdf-to-docx' 
+        : '/api/convert/pdf-to-docx';
+
+      const response = await fetch(apiUrl, {
         method: 'POST',
         body: formData
       });
