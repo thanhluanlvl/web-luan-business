@@ -171,29 +171,6 @@ app.post('/api/chat', (req, res) => {
     request.end();
 });
 
-// API: Chuyển đổi PDF sang DOCX bằng ConvertAPI (ẩn Key trên server)
-app.post('/api/convert/pdf-to-docx', upload.single('pdf'), async (req, res) => {
-    if (!req.file) return res.status(400).json({ error: true, message: 'Không tìm thấy file tải lên.' });
-    
-    try {
-        const convertapi = require('convertapi')('sN2CZ09r1MfZ6eRKNi2q9RBZBSQbNZpR');
-        
-        // Gọi ConvertAPI chuyển đổi file
-        const result = await convertapi.convert('docx', {
-            File: req.file.path
-        }, 'pdf');
-        
-        // Trả về đường link tải file kết quả từ ConvertAPI
-        res.json({ success: true, url: result.file.url });
-    } catch (e) {
-        console.error('ConvertAPI Error:', e);
-        res.status(500).json({ error: true, message: e.message || 'Lỗi trong quá trình chuyển đổi.' });
-    } finally {
-        // Xóa file rác sau khi xử lý xong để giải phóng ổ cứng
-        fs.unlink(req.file.path, () => {});
-    }
-});
-
 app.listen(PORT, () => {
     console.log(`Backend server running on http://localhost:${PORT}`);
 });

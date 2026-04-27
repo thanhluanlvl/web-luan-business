@@ -257,6 +257,19 @@
   100% { transform: scale(1); opacity: 1; }
 }
 
+.pdf-notice {
+  background: rgba(37, 99, 235, 0.1);
+  border: 1px solid rgba(37, 99, 235, 0.3);
+  color: #93c5fd;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+
 @media (max-width: 600px) {
   .pdf-tools-page { padding: 6rem 1rem 3rem; }
   .pdf-header h1 { font-size: 2rem; }
