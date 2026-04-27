@@ -3,7 +3,7 @@ import { MessageSquare, X, Send, Bot, User } from 'lucide-react';
 import './Chatbot.css';
 
 const Chatbot = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const [messages, setMessages] = useState([
     { id: 1, text: "Chào bạn! Tôi là trợ lý AI của Nguyễn Thành Luân. Tôi có thể giúp gì cho bạn hôm nay?", sender: 'bot' }
   ]);
