@@ -6,8 +6,9 @@ import { saveAs } from 'file-saver';
 import { FileUp, FileSignature, Files, Scissors, AlertCircle, X, FileText } from 'lucide-react';
 import './PdfTools.css';
 
-// Cấu hình worker cho PDF.js
-pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.mjs`;
+// Cấu hình worker cho PDF.js (tải trực tiếp từ thư viện, không qua CDN)
+import pdfjsWorker from 'pdfjs-dist/build/pdf.worker.min.mjs?url';
+pdfjsLib.GlobalWorkerOptions.workerSrc = pdfjsWorker;
 
 const PdfTools = () => {
   const [activeTab, setActiveTab] = useState('merge');
