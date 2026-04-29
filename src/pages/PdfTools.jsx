@@ -129,34 +129,81 @@ const PdfTools = () => {
     }
     setIsProcessing(true);
     setError('');
-    setProgressText('Đang tải file lên máy chủ Adobe...');
+    setProgressText('Đang kết nối Adobe...');
+
+    const CID = '733e7b1fd2194ec2bf028d375978f04d';
+    const CSE = 'p8e-Wx1rvvQXA94KFmOtHr_-CdeqUbpBWm_-';
 
     try {
-      const formData = new FormData();
-      formData.append('pdf', convertToDocxFile);
-
-      // Tự động phát hiện: chạy trên máy (localhost) hay trên mạng (Vercel)
-      const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-      const apiUrl = isLocal 
-        ? 'http://localhost:3001/api/convert/pdf-to-docx' 
-        : '/api/convert/pdf-to-docx';
-
-      const response = await fetch(apiUrl, {
+      // 1. Lấy Access Token
+      setProgressText('Đang xác thực với Adobe...');
+      const tokenRes = await fetch('https://pdf-services-ue1.adobe.io/token', {
         method: 'POST',
-        body: formData
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: `client_id=${CID}&client_secret=${CSE}`
+      });
+      const tokenData = await tokenRes.json();
+      const token = tokenData.access_token;
+      if (!token) throw new Error('Không lấy được token từ Adobe.');
+
+      // 2. Yêu cầu URL upload
+      setProgressText('Đang chuẩn bị tải file lên...');
+      const assetRes = await fetch('https://pdf-services-ue1.adobe.io/assets', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'x-api-key': CID,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ mediaType: 'application/pdf' })
+      });
+      const assetData = await assetRes.json();
+
+      // 3. Upload file PDF trực tiếp lên Adobe Cloud
+      setProgressText('Đang tải file PDF lên Adobe Cloud...');
+      await fetch(assetData.uploadUri, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/pdf' },
+        body: convertToDocxFile
       });
 
-      if (!response.ok) {
-        const errData = await response.json().catch(() => ({}));
-        throw new Error(errData.message || `Lỗi máy chủ: HTTP ${response.status}`);
+      // 4. Tạo lệnh chuyển đổi
+      setProgressText('Đang chuyển đổi sang Word...');
+      const exportRes = await fetch('https://pdf-services-ue1.adobe.io/operation/exportpdf', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'x-api-key': CID,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ assetID: assetData.assetID, targetFormat: 'docx' })
+      });
+      const pollUrl = exportRes.headers.get('location');
+      if (!pollUrl) throw new Error('Adobe không trả về URL theo dõi.');
+
+      // 5. Polling - chờ Adobe xử lý
+      let result = null;
+      for (let i = 0; i < 30; i++) {
+        await new Promise(r => setTimeout(r, 2000));
+        setProgressText(`Đang chờ Adobe xử lý... (${i * 2}s)`);
+        const pollRes = await fetch(pollUrl, {
+          headers: { 'Authorization': `Bearer ${token}`, 'x-api-key': CID }
+        });
+        const pollData = await pollRes.json();
+        if (pollData.status === 'done') { result = pollData; break; }
+        if (pollData.status === 'failed') throw new Error('Adobe xử lý thất bại.');
       }
+      if (!result) throw new Error('Hết thời gian chờ Adobe.');
 
+      // 6. Tải file DOCX kết quả
       setProgressText('Đang tải file Word về máy...');
+      const downloadUri = result.asset?.downloadUri || result.content?.downloadUri;
+      if (!downloadUri) throw new Error('Không tìm thấy link tải kết quả.');
 
-      // Nhận file DOCX dạng binary từ server
-      const blob = await response.blob();
-      const originalName = convertToDocxFile.name.replace('.pdf', '').replace('.PDF', '');
-      
+      const docxRes = await fetch(downloadUri);
+      const blob = await docxRes.blob();
+      const originalName = convertToDocxFile.name.replace(/\.pdf$/i, '');
+
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;

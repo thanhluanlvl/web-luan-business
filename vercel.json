@@ -5,7 +5,17 @@
   ],
   "functions": {
     "api/convert/pdf-to-docx.js": {
-      "maxDuration": 60
+      "maxDuration": 60,
+      "memory": 1024
     }
-  }
+  },
+  "routes": [
+    {
+      "src": "/api/convert/pdf-to-docx",
+      "methods": ["POST", "OPTIONS"],
+      "headers": {
+        "Access-Control-Allow-Origin": "*"
+      }
+    }
+  ]
 }
