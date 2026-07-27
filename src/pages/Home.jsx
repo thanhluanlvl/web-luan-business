@@ -26,6 +26,28 @@ const Home = () => {
   const [downloadsError, setDownloadsError] = useState('');
   const [downloadSearch, setDownloadSearch] = useState('');
 
+  useEffect(() => {
+    let settleTimer;
+
+    const scrollToDownloads = () => {
+      if (window.location.hash !== '#downloads') return;
+
+      window.requestAnimationFrame(() => {
+        document.getElementById('downloads')?.scrollIntoView({ block: 'start' });
+      });
+      settleTimer = window.setTimeout(() => {
+        document.getElementById('downloads')?.scrollIntoView({ block: 'start' });
+      }, 150);
+    };
+
+    scrollToDownloads();
+    window.addEventListener('hashchange', scrollToDownloads);
+    return () => {
+      window.clearTimeout(settleTimer);
+      window.removeEventListener('hashchange', scrollToDownloads);
+    };
+  }, []);
+
   const getImageUrl = (imgPath) => {
     if (!imgPath) return '';
     if (imgPath.startsWith('http')) return imgPath;

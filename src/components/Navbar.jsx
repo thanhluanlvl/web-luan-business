@@ -1,8 +1,29 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Cpu } from 'lucide-react';
 import './Navbar.css';
 
 const Navbar = () => {
+  const navigate = useNavigate();
+
+  const handleDownloadClick = (event) => {
+    event.preventDefault();
+    navigate('/#downloads');
+
+    const revealDownloads = (attempt = 0) => {
+      const section = document.getElementById('downloads');
+      if (section) {
+        section.scrollIntoView({ block: 'start' });
+        return;
+      }
+
+      if (attempt < 10) {
+        window.setTimeout(() => revealDownloads(attempt + 1), 25);
+      }
+    };
+
+    window.setTimeout(revealDownloads, 0);
+  };
+
   return (
     <nav className="navbar">
       <div className="container nav-container">
@@ -18,7 +39,11 @@ const Navbar = () => {
         <ul className="nav-links">
           <li><Link to="/">Trang chủ</Link></li>
           <li><a href="#services">Dịch vụ</a></li>
-          <li><Link to="/#downloads" className="download-nav-link">Download</Link></li>
+          <li>
+            <Link to="/#downloads" className="download-nav-link" onClick={handleDownloadClick}>
+              Download
+            </Link>
+          </li>
           <li><a href="#projects">Dự án</a></li>
           <li><Link to="/pdf-tools" style={{ color: 'var(--secondary-color)', fontWeight: 'bold' }}>Công cụ PDF</Link></li>
           <li><a href="#contact">Liên hệ</a></li>

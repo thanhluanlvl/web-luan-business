@@ -371,6 +371,7 @@
 /* Downloads */
 .downloads-section {
   position: relative;
+  scroll-margin-top: 96px;
   overflow: hidden;
   color: var(--white);
   background:
