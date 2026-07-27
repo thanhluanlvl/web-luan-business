@@ -51,16 +51,19 @@ app.get('/api/projects', (req, res) => {
 // API: Login
 app.post('/api/login', (req, res) => {
     const { password } = req.body;
-    if (password === 'Langvan123@@') { // Simple hardcoded password
-        res.json({ success: true, token: 'fake-jwt-token' });
+    const expectedPassword = process.env.ADMIN_PASSWORD || '';
+    const adminToken = process.env.ADMIN_API_TOKEN || '';
+    if (expectedPassword && adminToken && password === expectedPassword) {
+        res.json({ success: true, token: adminToken });
     } else {
         res.status(401).json({ success: false, message: 'Sai mật khẩu!' });
     }
 });
 
-// Middleware to check fake token
+// Middleware to check admin token
 const checkAuth = (req, res, next) => {
-    if (req.headers.authorization === 'Bearer fake-jwt-token') {
+    const adminToken = process.env.ADMIN_API_TOKEN || '';
+    if (adminToken && req.headers.authorization === `Bearer ${adminToken}`) {
         next();
     } else {
         res.status(401).json({ message: 'Unauthorized' });
@@ -123,6 +126,17 @@ app.put('/api/projects/:id', checkAuth, upload.array('images', 10), (req, res) =
 
     saveProjects(projects);
     res.json(projects[index]);
+});
+
+// Reuse the same serverless handlers during local development.
+app.post('/api/admin-login', async (req, res) => {
+    const { default: handler } = await import('./api/admin-login.js');
+    return handler(req, res);
+});
+
+app.all('/api/downloads', async (req, res) => {
+    const { default: handler } = await import('./api/downloads.js');
+    return handler(req, res);
 });
 
 // Proxy API cho n8n (bỏ qua CORS)

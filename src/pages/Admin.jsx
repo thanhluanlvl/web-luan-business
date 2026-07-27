@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react';
+import DownloadManager from '../components/DownloadManager';
 import './Admin.css';
 
+const API_BASE = import.meta.env.DEV ? 'http://localhost:3001' : '';
+
 const Admin = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(() => Boolean(localStorage.getItem('admin_token')));
   const [password, setPassword] = useState('');
   const [projects, setProjects] = useState([]);
   
@@ -24,22 +27,20 @@ const Admin = () => {
   };
 
   const fetchProjects = () => {
-    fetch('http://localhost:3001/api/projects')
+    const projectsUrl = import.meta.env.DEV ? `${API_BASE}/api/projects` : '/projects.json';
+    fetch(projectsUrl)
       .then(res => res.json())
       .then(data => setProjects(data))
       .catch(err => console.error("Error fetching projects:", err));
   };
 
   useEffect(() => {
-    if (localStorage.getItem('admin_token') === 'fake-jwt-token') {
-      setIsLoggedIn(true);
-      fetchProjects();
-    }
-  }, []);
+    if (isLoggedIn) fetchProjects();
+  }, [isLoggedIn]);
 
   const handleLogin = (e) => {
     e.preventDefault();
-    fetch('http://localhost:3001/api/login', {
+    fetch(`${API_BASE}/api/admin-login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ password })
@@ -49,7 +50,6 @@ const Admin = () => {
       if (data.success) {
         localStorage.setItem('admin_token', data.token);
         setIsLoggedIn(true);
-        fetchProjects();
       } else {
         setError('Sai mật khẩu!');
       }
@@ -79,7 +79,7 @@ const Admin = () => {
       data.append('existingImages', JSON.stringify(existingImages));
     }
 
-    const url = isEditing ? `http://localhost:3001/api/projects/${editId}` : 'http://localhost:3001/api/projects';
+    const url = isEditing ? `${API_BASE}/api/projects/${editId}` : `${API_BASE}/api/projects`;
     const method = isEditing ? 'PUT' : 'POST';
 
     fetch(url, {
@@ -115,7 +115,7 @@ const Admin = () => {
     if (!window.confirm("Bạn có chắc muốn xóa bài viết này?")) return;
     const token = localStorage.getItem('admin_token');
     
-    fetch(`http://localhost:3001/api/projects/${id}`, {
+    fetch(`${API_BASE}/api/projects/${id}`, {
       method: 'DELETE',
       headers: { 'Authorization': `Bearer ${token}` }
     })
@@ -165,12 +165,17 @@ const Admin = () => {
     <div className="admin-wrapper section bg-light">
       <div className="container">
         <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem'}}>
-          <h2 className="admin-title" style={{margin: 0}}>Quản lý Dự Án</h2>
+          <h2 className="admin-title" style={{margin: 0}}>Quản lý Nội Dung</h2>
           <button onClick={handleLogout} className="btn-outline" style={{padding: '0.5rem 1rem'}}>Đăng xuất</button>
         </div>
 
+        <DownloadManager
+          token={localStorage.getItem('admin_token')}
+          onUnauthorized={handleLogout}
+        />
+
         <div className="admin-card animate-fade-in" style={{marginBottom: '2rem'}}>
-          <h3 style={{marginBottom: '1rem'}}>{isEditing ? 'Sửa bài viết' : 'Thêm bài viết mới'}</h3>
+          <h3 style={{marginBottom: '1rem'}}>{isEditing ? 'Sửa dự án' : 'Thêm dự án mới'}</h3>
           
           {success && <div className="alert-success" style={{color: 'green', marginBottom: '1rem', padding: '1rem', background: '#e8f5e9', borderRadius: '4px'}}>{success}</div>}
           {error && <div className="alert-error" style={{color: 'red', marginBottom: '1rem', padding: '1rem', background: '#ffebee', borderRadius: '4px'}}>{error}</div>}

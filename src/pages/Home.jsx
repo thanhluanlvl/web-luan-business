@@ -1,12 +1,30 @@
-import { useState, useEffect } from 'react';
-import { Zap, Cpu, X, ChevronLeft, ChevronRight, Phone, Smartphone } from 'lucide-react';
+import { useState, useEffect, useMemo } from 'react';
+import {
+  Zap,
+  Cpu,
+  X,
+  ChevronLeft,
+  ChevronRight,
+  Phone,
+  Smartphone,
+  Download,
+  HardDriveDownload,
+  Search,
+  ShieldCheck,
+} from 'lucide-react';
 import { services } from '../data';
 import './Home.css';
+
+const API_BASE = import.meta.env.DEV ? 'http://localhost:3001' : '';
 
 const Home = () => {
   const [projects, setProjects] = useState([]);
   const [selectedProject, setSelectedProject] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [downloads, setDownloads] = useState([]);
+  const [downloadsLoading, setDownloadsLoading] = useState(true);
+  const [downloadsError, setDownloadsError] = useState('');
+  const [downloadSearch, setDownloadSearch] = useState('');
 
   const getImageUrl = (imgPath) => {
     if (!imgPath) return '';
@@ -16,11 +34,32 @@ const Home = () => {
   };
 
   useEffect(() => {
-    fetch('http://localhost:3001/api/projects')
+    const projectsUrl = import.meta.env.DEV ? 'http://localhost:3001/api/projects' : '/projects.json';
+    fetch(projectsUrl)
       .then(res => res.json())
       .then(data => setProjects(data))
       .catch(err => console.error("Error fetching projects:", err));
   }, []);
+
+  useEffect(() => {
+    fetch(`${API_BASE}/api/downloads`)
+      .then(async (res) => {
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Không tải được danh sách.');
+        return data;
+      })
+      .then(data => setDownloads(data.downloads || []))
+      .catch(error => setDownloadsError(error.message || 'Không tải được danh sách.'))
+      .finally(() => setDownloadsLoading(false));
+  }, []);
+
+  const visibleDownloads = useMemo(() => {
+    const keyword = downloadSearch.trim().toLocaleLowerCase('vi');
+    if (!keyword) return downloads;
+    return downloads.filter((item) =>
+      `${item.name} ${item.description || ''}`.toLocaleLowerCase('vi').includes(keyword)
+    );
+  }, [downloadSearch, downloads]);
 
   const openSlideshow = (project) => {
     setSelectedProject(project);
@@ -105,6 +144,68 @@ const Home = () => {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Downloads Section */}
+      <section id="downloads" className="section downloads-section">
+        <div className="container">
+          <div className="downloads-heading">
+            <div>
+              <span className="downloads-kicker"><Download size={16} /> KHO CÀI ĐẶT NHANH</span>
+              <h2>Download Phần Mềm</h2>
+              <p>Các công cụ cần thiết được chọn lọc để tải và cài đặt nhanh trên mọi máy tính.</p>
+            </div>
+            {downloads.length > 4 && (
+              <label className="downloads-search">
+                <Search size={18} />
+                <input
+                  type="search"
+                  placeholder="Tìm phần mềm…"
+                  value={downloadSearch}
+                  onChange={(event) => setDownloadSearch(event.target.value)}
+                  aria-label="Tìm phần mềm"
+                />
+              </label>
+            )}
+          </div>
+
+          {downloadsLoading && <div className="downloads-state">Đang tải kho phần mềm…</div>}
+          {!downloadsLoading && downloadsError && (
+            <div className="downloads-state error">{downloadsError}</div>
+          )}
+          {!downloadsLoading && !downloadsError && visibleDownloads.length > 0 && (
+            <div className="downloads-grid">
+              {visibleDownloads.map((item, index) => (
+                <article className="software-card" key={item.id}>
+                  <div className="software-card-top">
+                    <span className="software-icon"><HardDriveDownload size={24} /></span>
+                    <span className="software-number">{String(index + 1).padStart(2, '0')}</span>
+                  </div>
+                  <div className="software-copy">
+                    <h3>{item.name}</h3>
+                    <p>{item.description || 'Phần mềm hỗ trợ cài đặt dành cho máy tính.'}</p>
+                  </div>
+                  <div className="software-card-footer">
+                    <span><ShieldCheck size={15} /> Link Google Drive</span>
+                    <a
+                      href={`${API_BASE}/api/downloads?action=download&id=${item.id}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Tải xuống <Download size={17} />
+                    </a>
+                  </div>
+                </article>
+              ))}
+            </div>
+          )}
+          {!downloadsLoading && !downloadsError && downloads.length === 0 && (
+            <div className="downloads-state">Kho phần mềm đang được cập nhật.</div>
+          )}
+          {!downloadsLoading && !downloadsError && downloads.length > 0 && visibleDownloads.length === 0 && (
+            <div className="downloads-state">Không tìm thấy phần mềm phù hợp.</div>
+          )}
         </div>
       </section>
 

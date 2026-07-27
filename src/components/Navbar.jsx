@@ -18,6 +18,7 @@ const Navbar = () => {
         <ul className="nav-links">
           <li><Link to="/">Trang chủ</Link></li>
           <li><a href="#services">Dịch vụ</a></li>
+          <li><Link to="/#downloads" className="download-nav-link">Download</Link></li>
           <li><a href="#projects">Dự án</a></li>
           <li><Link to="/pdf-tools" style={{ color: 'var(--secondary-color)', fontWeight: 'bold' }}>Công cụ PDF</Link></li>
           <li><a href="#contact">Liên hệ</a></li>

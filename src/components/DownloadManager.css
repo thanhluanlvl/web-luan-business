@@ -1,0 +1,301 @@
+.download-admin-card {
+  width: 100%;
+  background: var(--white);
+  border: 1px solid var(--border-color);
+  border-radius: 1rem;
+  box-shadow: var(--shadow-lg);
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.download-admin-heading {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+}
+
+.download-admin-icon {
+  width: 48px;
+  height: 48px;
+  flex: 0 0 48px;
+  display: grid;
+  place-items: center;
+  color: var(--white);
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+  border-radius: 14px;
+}
+
+.download-admin-heading span {
+  display: block;
+  color: var(--secondary-color);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.download-admin-heading h3 {
+  font-size: 1.45rem;
+  margin: 0.1rem 0;
+}
+
+.download-admin-heading p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.download-admin-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  padding: 1.25rem;
+  background: #f8fafc;
+  border: 1px solid var(--border-color);
+  border-radius: 0.85rem;
+}
+
+.download-admin-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.download-admin-form label > span {
+  color: var(--text-main);
+  font-size: 0.85rem;
+  font-weight: 650;
+}
+
+.download-admin-form input {
+  width: 100%;
+  padding: 0.75rem;
+  color: var(--text-main);
+  background: var(--white);
+  border: 1px solid var(--border-color);
+  border-radius: 0.55rem;
+  outline: none;
+  font: inherit;
+}
+
+.download-admin-form input:focus {
+  border-color: var(--primary-light);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.download-admin-form small {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+}
+
+.download-form-wide {
+  grid-column: 1 / -1;
+}
+
+.download-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.65rem;
+}
+
+.download-save-button,
+.download-secondary-button {
+  min-height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  border-radius: 0.55rem;
+  padding: 0.65rem 1.1rem;
+  font-weight: 700;
+}
+
+.download-save-button {
+  color: var(--white);
+  background: var(--secondary-color);
+}
+
+.download-save-button:hover {
+  background: var(--secondary-hover);
+}
+
+.download-save-button:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.download-secondary-button {
+  color: var(--primary-color);
+  background: var(--white);
+  border: 1px solid var(--border-color);
+}
+
+.download-admin-notice {
+  margin-top: 1rem;
+  padding: 0.75rem 0.9rem;
+  border-radius: 0.55rem;
+  font-size: 0.85rem;
+  font-weight: 650;
+}
+
+.download-admin-notice.success {
+  color: #166534;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+}
+
+.download-admin-notice.error {
+  color: #b42318;
+  background: #fff6f5;
+  border: 1px solid #fecdca;
+}
+
+.download-admin-list-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin: 1.75rem 0 0.8rem;
+}
+
+.download-admin-list-heading h4 {
+  font-size: 1rem;
+}
+
+.download-admin-list-heading span {
+  color: var(--text-muted);
+  background: #f1f5f9;
+  border-radius: 999px;
+  padding: 0.3rem 0.65rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.download-admin-list {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.download-admin-item {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.8rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.7rem;
+}
+
+.download-admin-item.is-hidden {
+  background: #f8fafc;
+}
+
+.download-admin-item.is-hidden .download-admin-copy {
+  opacity: 0.62;
+}
+
+.download-admin-index {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  color: var(--primary-color);
+  background: #eff6ff;
+  border-radius: 10px;
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.download-admin-copy > div {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.download-admin-copy h4 {
+  color: var(--text-main);
+  font-size: 0.95rem;
+}
+
+.download-admin-copy p {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  margin-top: 0.15rem;
+}
+
+.download-admin-copy small {
+  color: #94a3b8;
+  font-size: 0.72rem;
+}
+
+.status-visible,
+.status-hidden {
+  border-radius: 999px;
+  padding: 0.15rem 0.45rem;
+  font-size: 0.65rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.status-visible {
+  color: #166534;
+  background: #dcfce7;
+}
+
+.status-hidden {
+  color: #64748b;
+  background: #e2e8f0;
+}
+
+.download-admin-actions {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.download-admin-actions a,
+.download-admin-actions button {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  color: var(--primary-color);
+  background: var(--white);
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+}
+
+.download-admin-actions a:hover,
+.download-admin-actions button:hover {
+  color: var(--white);
+  background: var(--primary-color);
+}
+
+.download-admin-actions .delete {
+  color: #dc2626;
+}
+
+.download-admin-actions .delete:hover {
+  color: var(--white);
+  background: #dc2626;
+  border-color: #dc2626;
+}
+
+.download-admin-empty {
+  padding: 2rem 1rem;
+  color: var(--text-muted);
+  background: #f8fafc;
+  border: 1px dashed var(--border-color);
+  border-radius: 0.7rem;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 700px) {
+  .download-admin-card { padding: 1.2rem; }
+  .download-admin-form { grid-template-columns: 1fr; padding: 1rem; }
+  .download-form-wide { grid-column: auto; }
+  .download-form-actions { justify-content: stretch; }
+  .download-form-actions button { flex: 1; }
+  .download-admin-item { grid-template-columns: 36px minmax(0, 1fr); }
+  .download-admin-actions { grid-column: 1 / -1; justify-content: flex-end; }
+}
