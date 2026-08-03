@@ -91,6 +91,7 @@ const Footer = () => {
             <li>Sửa chữa, đổ mực máy in</li>
             <li>Cho thuê máy photocopy tại An Dương</li>
             <li><a href="/kien-thuc-may-in-an-duong">Kiến thức xử lý lỗi máy in</a></li>
+            <li><a href="/kien-thuc-in-an-quang-cao-an-duong">Kiến thức in ấn & biển hiệu</a></li>
             <li>Thiết kế & thi công Pano</li>
             <li>In bạt khổ lớn</li>
           </ul>

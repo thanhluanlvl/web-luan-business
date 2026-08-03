@@ -166,6 +166,10 @@
   color: var(--secondary-color);
 }
 
+.service-title-link {
+  display: block;
+}
+
 .service-content p {
   color: var(--text-muted);
   margin-bottom: 1rem;
@@ -190,6 +194,10 @@
 /* Printer knowledge */
 .knowledge-section {
   background: #eef4fb;
+}
+
+.advertising-knowledge-section {
+  background: #fff7ed;
 }
 
 .knowledge-heading {

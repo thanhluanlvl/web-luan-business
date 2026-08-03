@@ -21,7 +21,7 @@ export const services = [
     description: "Dịch vụ in bạt khổ lớn, phông bạt quảng cáo, backdrop sự kiện sắc nét, chất lượng cao.",
     image: "/luan_storefront.png",
     features: ["Màu in sắc nét", "Đúng hẹn bàn giao"],
-    href: "/#contact"
+    href: "/in-bat-chat-luong-cao-an-duong"
   },
   {
     id: 4,
@@ -29,7 +29,7 @@ export const services = [
     description: "Thiết kế và thi công pano, bảng hiệu quảng cáo, khẩu hiệu chuyên nghiệp, ấn tượng.",
     image: "/luan_storefront.png",
     features: ["Thiết kế chỉn chu", "Thi công chắc chắn"],
-    href: "/#contact"
+    href: "/thi-cong-bien-hieu-an-duong"
   },
   {
     id: 5,

@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { services } from '../data';
 import { printerArticles } from '../data/printerArticles';
+import { advertisingArticles } from '../data/advertisingArticles';
 import PrinterArticleCard from '../components/PrinterArticleCard';
 import './Home.css';
 
@@ -204,6 +205,25 @@ const Home = () => {
           </div>
           <div className="knowledge-grid">
             {printerArticles.map((article) => <PrinterArticleCard article={article} key={article.slug} />)}
+          </div>
+        </div>
+      </section>
+
+      {/* Advertising Knowledge Section */}
+      <section id="advertising-knowledge" className="section advertising-knowledge-section">
+        <div className="container">
+          <div className="knowledge-heading">
+            <div>
+              <span>IN ẤN & BIỂN HIỆU TẠI AN DƯƠNG</span>
+              <h2>In bạt, in decal và thi công biển quảng cáo</h2>
+              <p>Kinh nghiệm chọn vật liệu, chuẩn bị file, tối ưu chi phí và làm mặt tiền cửa hàng rõ đẹp, chắc chắn.</p>
+            </div>
+            <Link className="knowledge-all-link" to="/kien-thuc-in-an-quang-cao-an-duong">
+              Xem 6 bài hướng dẫn <ArrowRight size={18} />
+            </Link>
+          </div>
+          <div className="knowledge-grid">
+            {advertisingArticles.slice(0, 4).map((article) => <PrinterArticleCard article={article} key={article.slug} />)}
           </div>
         </div>
       </section>

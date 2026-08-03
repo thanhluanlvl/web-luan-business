@@ -11,6 +11,18 @@
   color: white;
 }
 
+.advertising-knowledge-hero,
+.advertising-article-page .printer-article-hero {
+  background:
+    radial-gradient(circle at 88% 10%, rgba(251, 191, 36, 0.25), transparent 28%),
+    linear-gradient(135deg, #2c1207 0%, #7c2d12 58%, #c2410c 100%);
+}
+
+.advertising-knowledge-hero > .container > span,
+.advertising-article-page .printer-article-category {
+  color: #fed7aa;
+}
+
 .printer-knowledge-hero {
   padding: 5rem 0;
   text-align: center;

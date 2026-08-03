@@ -7,10 +7,21 @@ import './PrinterArticles.css';
 
 const PUBLISHED_DATE = '2026-08-03';
 
-const PrinterArticle = ({ article }) => {
+const defaultContext = {
+  articles: printerArticles,
+  collectionPath: '/kien-thuc-may-in-an-duong',
+  collectionLabel: 'Kiến thức máy in',
+  localTitle: 'Cần kiểm tra máy in tận nơi?',
+  localDescription: 'Gửi mã máy và ảnh trang in lỗi qua Zalo để được hướng dẫn bước đầu và chuẩn bị đúng vật tư trước khi đến.',
+  relatedTitle: 'Bài viết xử lý máy in liên quan',
+  pageClass: '',
+};
+
+const PrinterArticle = ({ article, context = defaultContext }) => {
+  const articleContext = { ...defaultContext, ...context };
   const pageUrl = `https://suamayinanduong.com/${article.slug}`;
   const imageUrl = `https://suamayinanduong.com${article.image}`;
-  const relatedArticles = printerArticles.filter((item) => item.slug !== article.slug).slice(0, 3);
+  const relatedArticles = articleContext.articles.filter((item) => item.slug !== article.slug).slice(0, 3);
 
   useSeoMeta({
     title: article.metaTitle,
@@ -53,14 +64,14 @@ const PrinterArticle = ({ article }) => {
   };
 
   return (
-    <main className="printer-article-page">
+    <main className={`printer-article-page ${articleContext.pageClass}`.trim()}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
 
       <header className="printer-article-hero">
         <div className="container printer-article-hero-grid">
           <div className="printer-article-heading">
             <div className="printer-article-kicker-row">
-              <Link className="printer-back-link" to="/kien-thuc-may-in-an-duong"><ArrowLeft size={17} /> Kiến thức máy in</Link>
+              <Link className="printer-back-link" to={articleContext.collectionPath}><ArrowLeft size={17} /> {articleContext.collectionLabel}</Link>
               <span className="printer-article-category">{article.category} · An Dương, Hải Phòng</span>
             </div>
             <h1>{article.title}</h1>
@@ -111,8 +122,8 @@ const PrinterArticle = ({ article }) => {
           <img src="/luan_storefront.png?v=296" alt="Nguyễn Thành Luân tại cửa hàng 296 Đặng Cương, An Dương" />
           <div>
             <span>PHỤC VỤ TẬN TỤY TẠI AN DƯƠNG</span>
-            <h2>Cần kiểm tra máy in tận nơi?</h2>
-            <p>Gửi mã máy và ảnh trang in lỗi qua Zalo để được hướng dẫn bước đầu và chuẩn bị đúng vật tư trước khi đến.</p>
+            <h2>{articleContext.localTitle}</h2>
+            <p>{articleContext.localDescription}</p>
             <a href="tel:0966228133"><Phone size={18} /> 0966.228.133</a>
             <a href="https://zalo.me/0966228133" target="_blank" rel="noopener noreferrer">Nhắn Zalo</a>
           </div>
@@ -123,7 +134,7 @@ const PrinterArticle = ({ article }) => {
         <div className="container">
           <div className="printer-section-heading">
             <span>ĐỌC THÊM</span>
-            <h2>Bài viết xử lý máy in liên quan</h2>
+            <h2>{articleContext.relatedTitle}</h2>
           </div>
           <div className="printer-article-grid printer-related-grid">
             {relatedArticles.map((item) => <PrinterArticleCard article={item} key={item.slug} />)}
