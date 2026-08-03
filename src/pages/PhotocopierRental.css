@@ -1,0 +1,303 @@
+.rental-page {
+  background: #f8fafc;
+}
+
+.rental-hero {
+  padding: 5.5rem 0 4.5rem;
+  background:
+    radial-gradient(circle at 8% 18%, rgba(59, 130, 246, 0.18), transparent 28%),
+    linear-gradient(135deg, #07162f 0%, #12346b 58%, #1e3a8a 100%);
+  color: white;
+}
+
+.rental-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(360px, 0.95fr);
+  gap: 3.5rem;
+  align-items: center;
+}
+
+.rental-kicker,
+.rental-section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: #fb923c;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  font-size: 0.78rem;
+}
+
+.rental-hero h1 {
+  color: white;
+  font-size: clamp(2.5rem, 5vw, 4.4rem);
+  line-height: 1.04;
+  margin: 1rem 0 1.25rem;
+  max-width: 760px;
+}
+
+.rental-hero-copy > p {
+  max-width: 690px;
+  color: #dbeafe;
+  font-size: 1.08rem;
+}
+
+.rental-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  margin: 1.8rem 0;
+}
+
+.rental-zalo {
+  color: white;
+  border-color: rgba(255, 255, 255, 0.65);
+}
+
+.rental-zalo:hover {
+  background: white;
+  color: var(--primary-color);
+}
+
+.rental-trust-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.2rem;
+  list-style: none;
+  color: #dbeafe;
+  font-size: 0.88rem;
+}
+
+.rental-trust-list li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.rental-hero-image {
+  overflow: hidden;
+  border-radius: 1.5rem;
+  box-shadow: 0 28px 65px rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  aspect-ratio: 4 / 3;
+}
+
+.rental-hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 28%;
+  display: block;
+}
+
+.rental-article {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+.rental-intro {
+  max-width: 900px;
+  margin: 0 auto 3.5rem;
+  text-align: center;
+}
+
+.rental-intro h2,
+.rental-process h2,
+.rental-faq h2,
+.rental-toner-block h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.15;
+  margin: 0.65rem 0 1.25rem;
+}
+
+.rental-intro p,
+.rental-toner-copy p {
+  color: #475569;
+  font-size: 1.02rem;
+  margin-top: 1rem;
+}
+
+.rental-benefit-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.1rem;
+  margin-bottom: 4.5rem;
+}
+
+.rental-benefit-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 1.1rem;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.rental-benefit-card > svg {
+  color: var(--secondary-color);
+  margin-bottom: 1rem;
+}
+
+.rental-benefit-card h3 {
+  font-size: 1.12rem;
+  margin-bottom: 0.65rem;
+}
+
+.rental-benefit-card p {
+  color: #64748b;
+  font-size: 0.92rem;
+}
+
+.rental-toner-block {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 3.5rem;
+  padding: 3rem;
+  border-radius: 1.5rem;
+  background: #eaf2ff;
+  border: 1px solid #cbdcf8;
+  margin-bottom: 4.5rem;
+}
+
+.rental-process,
+.rental-faq {
+  max-width: 900px;
+  margin: 0 auto 4.5rem;
+}
+
+.rental-process ol {
+  list-style: none;
+  counter-reset: rental-step;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.rental-process li {
+  counter-increment: rental-step;
+  position: relative;
+  padding: 1.2rem 1.2rem 1.2rem 4rem;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 1rem;
+  color: #475569;
+}
+
+.rental-process li::before {
+  content: counter(rental-step);
+  position: absolute;
+  left: 1.15rem;
+  top: 1rem;
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: var(--secondary-color);
+  color: white;
+  font-weight: 800;
+}
+
+.rental-faq details {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.85rem;
+  padding: 1rem 1.2rem;
+  margin-top: 0.8rem;
+}
+
+.rental-faq summary {
+  cursor: pointer;
+  color: var(--primary-color);
+  font-weight: 700;
+}
+
+.rental-faq details p {
+  color: #64748b;
+  margin-top: 0.75rem;
+}
+
+.rental-final-cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 2.25rem 2.5rem;
+  border-radius: 1.25rem;
+  background: linear-gradient(135deg, #102a56, #1e3a8a);
+  color: white;
+}
+
+.rental-final-cta span {
+  color: #fb923c;
+  font-weight: 800;
+  font-size: 0.76rem;
+  letter-spacing: 0.08em;
+}
+
+.rental-final-cta h2 {
+  color: white;
+  max-width: 720px;
+  margin-top: 0.4rem;
+  line-height: 1.2;
+}
+
+.rental-final-cta a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex: 0 0 auto;
+  padding: 0.9rem 1.2rem;
+  border-radius: 0.7rem;
+  background: var(--secondary-color);
+  color: white;
+  font-weight: 800;
+}
+
+@media (max-width: 900px) {
+  .rental-hero {
+    padding: 3.5rem 0;
+  }
+
+  .rental-hero-grid,
+  .rental-toner-block {
+    grid-template-columns: 1fr;
+  }
+
+  .rental-benefit-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .rental-final-cta {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 600px) {
+  .rental-hero h1 {
+    font-size: 2.35rem;
+  }
+
+  .rental-hero-grid {
+    gap: 2rem;
+  }
+
+  .rental-benefit-grid,
+  .rental-process ol {
+    grid-template-columns: 1fr;
+  }
+
+  .rental-toner-block {
+    padding: 1.5rem;
+  }
+
+  .rental-final-cta {
+    padding: 1.5rem;
+  }
+
+  .rental-final-cta a {
+    width: 100%;
+    justify-content: center;
+  }
+}

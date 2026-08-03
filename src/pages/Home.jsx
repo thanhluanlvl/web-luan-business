@@ -1,5 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import {
+  ArrowRight,
   Zap,
   Cpu,
   X,
@@ -158,18 +160,29 @@ const Home = () => {
           <h2 className="section-title">Dịch Vụ Nổi Bật</h2>
           <div className="services-grid">
             {services.map(service => (
-              <div key={service.id} className="service-card">
-                <div className="service-img" style={{ backgroundImage: `url(${getImageUrl(service.image)})`, backgroundSize: 'cover' }}>
-                </div>
+              <article key={service.id} className="service-card">
+                <img
+                  className="service-img"
+                  src={getImageUrl(service.image)}
+                  alt={service.imageAlt || `${service.title} tại An Dương, Hải Phòng`}
+                  loading="lazy"
+                  style={{ objectPosition: service.imagePosition || 'center' }}
+                />
                 <div className="service-content">
                   <h3>{service.title}</h3>
                   <p>{service.description}</p>
                   <ul className="service-features">
-                    <li><Cpu size={16} className="tech-icon-orange" /> Nhanh chóng</li>
-                    <li><Cpu size={16} className="tech-icon-orange" /> Uy tín</li>
+                    {(service.features || ['Nhanh chóng', 'Uy tín']).map(feature => (
+                      <li key={feature}><Cpu size={16} className="tech-icon-orange" /> {feature}</li>
+                    ))}
                   </ul>
+                  {service.href && (
+                    <Link className="service-detail-link" to={service.href}>
+                      Xem chi tiết dịch vụ <ArrowRight size={17} />
+                    </Link>
+                  )}
                 </div>
-              </div>
+              </article>
             ))}
           </div>
         </div>

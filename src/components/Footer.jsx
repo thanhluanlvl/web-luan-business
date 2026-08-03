@@ -7,7 +7,12 @@ const TODAY_KEY = () => new Date().toISOString().slice(0, 10).replace(/-/g, '');
 
 const Footer = () => {
   const [visits, setVisits] = useState(null);
-  const [online, setOnline] = useState(1);
+  const [online, setOnline] = useState(() => {
+    const stored = parseInt(localStorage.getItem('ol_count') || '1', 10);
+    const seed = Math.max(1, stored + Math.floor(Math.random() * 3) - 1);
+    localStorage.setItem('ol_count', seed);
+    return Math.min(seed, 12);
+  });
 
   // Count today's visits via CountAPI
   useEffect(() => {
@@ -29,18 +34,12 @@ const Footer = () => {
   // Simulate online users realistically
   useEffect(() => {
     const ONLINE_KEY = 'ol_heartbeat';
-    const USERS_KEY  = 'ol_count';
     const now = Date.now();
 
     // Register this tab's heartbeat
     localStorage.setItem(ONLINE_KEY, now);
 
     // Count active tabs (within last 30s)
-    const stored = parseInt(localStorage.getItem(USERS_KEY) || '1', 10);
-    const seed = Math.max(1, stored + Math.floor(Math.random() * 3) - 1);
-    setOnline(Math.min(seed, 12));
-    localStorage.setItem(USERS_KEY, seed);
-
     const interval = setInterval(() => {
       localStorage.setItem(ONLINE_KEY, Date.now());
     }, 10000);
@@ -61,7 +60,7 @@ const Footer = () => {
       <div className="container footer-container">
         <div className="footer-col">
           <h3>Hộ kinh doanh Nguyễn Thành Luân</h3>
-          <p>Chuyên cung cấp dịch vụ sửa chữa máy tính, máy in và thi công biển hiệu quảng cáo uy tín, chất lượng.</p>
+          <p>Cho thuê máy photocopy giá rẻ, đổ mực và sửa chữa máy in tận nơi tại An Dương; phục vụ tận tụy, nhanh chóng.</p>
         </div>
         <div className="footer-col">
           <h3>Liên hệ</h3>
@@ -90,6 +89,7 @@ const Footer = () => {
           <ul>
             <li>Sửa máy tính, laptop</li>
             <li>Sửa chữa, đổ mực máy in</li>
+            <li>Cho thuê máy photocopy tại An Dương</li>
             <li>Thiết kế & thi công Pano</li>
             <li>In bạt khổ lớn</li>
           </ul>

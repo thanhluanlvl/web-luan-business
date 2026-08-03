@@ -146,9 +146,11 @@
 }
 
 .service-img {
+  display: block;
+  width: 100%;
   height: 200px;
-  background-size: cover;
-  background-position: center;
+  object-fit: cover;
+  object-position: center;
 }
 
 .service-content {
@@ -178,6 +180,21 @@
   gap: 0.25rem;
   font-size: 0.85rem;
   font-weight: 600;
+}
+
+.service-detail-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 1.1rem;
+  color: var(--primary-color);
+  font-weight: 700;
+  font-size: 0.92rem;
+}
+
+.service-detail-link:hover {
+  color: var(--secondary-color);
+  gap: 0.65rem;
 }
 
 .text-secondary {

@@ -26,8 +26,20 @@ export const services = [
   {
     id: 5,
     title: "Đổ mực in",
-    description: "Đổ mực in chính hãng, chất lượng cao, bản in đậm đẹp, bảo vệ tuổi thọ máy in.",
-    image: "/service_toner_refill.png"
+    description: "Đổ mực máy in, máy photocopy tận nơi tại An Dương; vệ sinh, kiểm tra máy tận tụy để bản in đậm rõ và ổn định.",
+    image: "/service_toner_refill.png",
+    imageAlt: "Kỹ thuật viên đổ mực máy in tận nơi tại An Dương, Hải Phòng",
+    features: ["Đổ mực tận nơi", "Kiểm tra tận tụy"]
+  },
+  {
+    id: 6,
+    title: "Cho thuê máy photocopy giá rẻ",
+    description: "Cho thuê máy photocopy tại An Dương cho văn phòng, trường học và cửa hàng; lắp đặt tận nơi, bảo trì và hỗ trợ nhanh.",
+    image: "/service_photocopier_rental.png",
+    imageAlt: "Kỹ thuật viên lắp đặt máy photocopy cho thuê tại An Dương, Hải Phòng",
+    imagePosition: "center 28%",
+    features: ["Lắp đặt tận nơi", "Hỗ trợ tận tụy"],
+    href: "/cho-thue-may-photocopy-an-duong"
   }
 ];
 
