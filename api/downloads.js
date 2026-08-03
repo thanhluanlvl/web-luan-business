@@ -1,6 +1,7 @@
 import {
   cleanText,
   ensureDownloadsTable,
+  getGoogleDriveResourceType,
   isAdminRequest,
   query,
   toGoogleDriveDownloadUrl,
@@ -53,15 +54,24 @@ export default async function handler(req, res) {
       if (includeHidden && !isAdminRequest(req)) return unauthorized(res);
 
       const result = await query(`
-        SELECT id::text AS id, name, description,
-               ${includeHidden ? 'google_drive_url, is_active, download_count::text AS download_count,' : ''}
+        SELECT id::text AS id, name, description, google_drive_url,
+               ${includeHidden ? 'is_active, download_count::text AS download_count,' : ''}
                to_char(updated_at AT TIME ZONE 'Asia/Ho_Chi_Minh', 'DD/MM/YYYY HH24:MI') AS updated_at_vn
         FROM web_luan_downloads
         ${includeHidden ? '' : 'WHERE is_active = TRUE'}
         ORDER BY sort_order, id DESC
       `);
 
-      return res.status(200).json({ downloads: result.rows });
+      const downloads = result.rows.map((row) => {
+        const resourceType = getGoogleDriveResourceType(row.google_drive_url) || 'file';
+        if (includeHidden) return { ...row, resource_type: resourceType };
+
+        const publicRow = { ...row, resource_type: resourceType };
+        delete publicRow.google_drive_url;
+        return publicRow;
+      });
+
+      return res.status(200).json({ downloads });
     }
 
     if (!isAdminRequest(req)) return unauthorized(res);

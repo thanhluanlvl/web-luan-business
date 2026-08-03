@@ -209,13 +209,13 @@ const Home = () => {
                     <p>{item.description || 'Phần mềm hỗ trợ cài đặt dành cho máy tính.'}</p>
                   </div>
                   <div className="software-card-footer">
-                    <span><ShieldCheck size={15} /> Link Google Drive</span>
+                    <span><ShieldCheck size={15} /> {item.resource_type === 'folder' ? 'Thư mục Google Drive' : 'File Google Drive'}</span>
                     <a
                       href={`${API_BASE}/api/downloads?action=download&id=${item.id}`}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      Tải xuống <Download size={17} />
+                      {item.resource_type === 'folder' ? 'Mở thư mục' : 'Tải xuống'} <Download size={17} />
                     </a>
                   </div>
                 </article>

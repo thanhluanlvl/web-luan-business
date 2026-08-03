@@ -155,18 +155,18 @@ const DownloadManager = ({ token, onUnauthorized }) => {
         <div>
           <span>QUẢN LÝ TRANG CHỦ</span>
           <h3 id="download-admin-title">Kho Download</h3>
-          <p>Dán link Google Drive, đặt tên và lưu để khách tải trực tiếp.</p>
+          <p>Dán link file hoặc cả thư mục Google Drive để lưu và mở lại khi cần.</p>
         </div>
       </div>
 
       <form className="download-admin-form" onSubmit={submit}>
         <label>
-          <span>Tên phần mềm *</span>
+          <span>Tên mục *</span>
           <input
             type="text"
             value={form.name}
             onChange={(event) => updateForm('name', event.target.value)}
-            placeholder="Ví dụ: UltraViewer"
+            placeholder="Ví dụ: Bộ cài đặt máy tính"
             maxLength={160}
             required
           />
@@ -184,15 +184,15 @@ const DownloadManager = ({ token, onUnauthorized }) => {
         </label>
 
         <label className="download-form-wide">
-          <span>Link chia sẻ Google Drive *</span>
+          <span>Link file hoặc thư mục Google Drive *</span>
           <input
             type="url"
             value={form.google_drive_url}
             onChange={(event) => updateForm('google_drive_url', event.target.value)}
-            placeholder="https://drive.google.com/file/d/..."
+            placeholder="https://drive.google.com/drive/folders/..."
             required
           />
-          <small>Hãy bật quyền “Bất kỳ ai có đường liên kết” trên Google Drive.</small>
+          <small>Chấp nhận cả file và thư mục. Hãy bật quyền “Bất kỳ ai có đường liên kết”.</small>
         </label>
 
         <div className="download-form-actions download-form-wide">
@@ -203,7 +203,7 @@ const DownloadManager = ({ token, onUnauthorized }) => {
           )}
           <button type="submit" className="download-save-button" disabled={saving}>
             <Plus size={18} />
-            {saving ? 'Đang lưu…' : editingId ? 'Lưu thay đổi' : 'Thêm phần mềm'}
+            {saving ? 'Đang lưu…' : editingId ? 'Lưu thay đổi' : 'Thêm mục'}
           </button>
         </div>
       </form>
