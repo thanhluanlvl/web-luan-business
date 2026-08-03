@@ -171,18 +171,17 @@ const Home = () => {
                   style={{ objectPosition: service.imagePosition || 'center' }}
                 />
                 <div className="service-content">
-                  <h3>{service.title}</h3>
+                  <h3>
+                    <Link className="service-title-link" to={service.href}>
+                      {service.title}
+                    </Link>
+                  </h3>
                   <p>{service.description}</p>
                   <ul className="service-features">
-                    {(service.features || ['Nhanh chóng', 'Uy tín']).map(feature => (
+                    {service.features.map(feature => (
                       <li key={feature}><Cpu size={16} className="tech-icon-orange" /> {feature}</li>
                     ))}
                   </ul>
-                  {service.href && (
-                    <Link className="service-detail-link" to={service.href}>
-                      Xem chi tiết dịch vụ <ArrowRight size={17} />
-                    </Link>
-                  )}
                 </div>
               </article>
             ))}

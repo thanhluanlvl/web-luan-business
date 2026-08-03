@@ -1,4 +1,4 @@
-import { ArrowRight, Clock3 } from 'lucide-react';
+import { Clock3 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import './PrinterArticleCard.css';
 
@@ -19,9 +19,6 @@ const PrinterArticleCard = ({ article }) => (
       </div>
       <h3><Link to={`/${article.slug}`}>{article.title}</Link></h3>
       <p>{article.excerpt}</p>
-      <Link className="printer-article-link" to={`/${article.slug}`}>
-        Đọc bài viết <ArrowRight size={17} />
-      </Link>
     </div>
   </article>
 );
