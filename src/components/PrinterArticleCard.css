@@ -1,0 +1,96 @@
+.printer-article-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  border-radius: 1.1rem;
+  background: white;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.printer-article-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.printer-article-image {
+  display: block;
+  height: 210px;
+  overflow: hidden;
+}
+
+.printer-article-image img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  transition: transform 0.45s ease;
+}
+
+.printer-article-card:hover .printer-article-image img {
+  transform: scale(1.035);
+}
+
+.printer-article-card-content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 1.35rem;
+}
+
+.printer-article-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.85rem;
+}
+
+.printer-article-meta span {
+  color: var(--secondary-color);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.printer-article-meta small {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: #64748b;
+  white-space: nowrap;
+}
+
+.printer-article-card h3 {
+  font-size: 1.2rem;
+  line-height: 1.3;
+  margin-bottom: 0.7rem;
+}
+
+.printer-article-card h3 a:hover {
+  color: var(--secondary-color);
+}
+
+.printer-article-card p {
+  color: #64748b;
+  font-size: 0.92rem;
+  margin-bottom: 1.15rem;
+}
+
+.printer-article-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: auto;
+  color: var(--primary-color);
+  font-weight: 800;
+  font-size: 0.9rem;
+}
+
+.printer-article-link:hover {
+  color: var(--secondary-color);
+  gap: 0.65rem;
+}

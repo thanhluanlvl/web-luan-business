@@ -15,6 +15,8 @@ import {
   ShieldCheck,
 } from 'lucide-react';
 import { services } from '../data';
+import { printerArticles } from '../data/printerArticles';
+import PrinterArticleCard from '../components/PrinterArticleCard';
 import './Home.css';
 
 const API_BASE = import.meta.env.DEV ? 'http://localhost:3001' : '';
@@ -184,6 +186,25 @@ const Home = () => {
                 </div>
               </article>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Printer Knowledge Section */}
+      <section id="printer-knowledge" className="section knowledge-section">
+        <div className="container">
+          <div className="knowledge-heading">
+            <div>
+              <span>KIẾN THỨC HỮU ÍCH TẠI AN DƯƠNG</span>
+              <h2>Đổ mực, sửa chữa và xử lý sự cố máy in</h2>
+              <p>Hướng dẫn dễ hiểu để nhận biết lỗi, xử lý bước đầu an toàn và biết khi nào nên gọi kỹ thuật viên tận nơi.</p>
+            </div>
+            <Link className="knowledge-all-link" to="/kien-thuc-may-in-an-duong">
+              Xem tất cả bài viết <ArrowRight size={18} />
+            </Link>
+          </div>
+          <div className="knowledge-grid">
+            {printerArticles.map((article) => <PrinterArticleCard article={article} key={article.slug} />)}
           </div>
         </div>
       </section>
