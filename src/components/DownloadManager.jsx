@@ -242,7 +242,7 @@ const DownloadManager = ({ token, onUnauthorized }) => {
                     href={`${API_BASE}/api/downloads?action=download&id=${item.id}`}
                     target="_blank"
                     rel="noreferrer"
-                    title="Tải thử"
+                    title="Mở thử"
                   >
                     <ExternalLink size={17} />
                   </a>

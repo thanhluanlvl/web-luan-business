@@ -4,7 +4,7 @@ import test from 'node:test';
 import {
   getGoogleDriveFolderId,
   getGoogleDriveResourceType,
-  toGoogleDriveDownloadUrl,
+  toGoogleDriveOpenUrl,
   validateGoogleDriveUrl,
 } from '../lib/downloads-store.js';
 
@@ -22,19 +22,24 @@ test('accepts common Google Drive folder links', () => {
     assert.deepEqual(validateGoogleDriveUrl(link), { value: link });
     assert.equal(getGoogleDriveFolderId(link), folderId);
     assert.equal(getGoogleDriveResourceType(link), 'folder');
-    assert.equal(toGoogleDriveDownloadUrl(link), link);
+    assert.equal(toGoogleDriveOpenUrl(link), link);
   }
 });
 
-test('keeps direct-download behavior for Google Drive files', () => {
+test('opens Google Drive files through their original share link', () => {
   const link = `https://drive.google.com/file/d/${fileId}/view?usp=sharing`;
 
   assert.deepEqual(validateGoogleDriveUrl(link), { value: link });
   assert.equal(getGoogleDriveResourceType(link), 'file');
-  assert.equal(
-    toGoogleDriveDownloadUrl(link),
-    `https://drive.google.com/uc?export=download&id=${fileId}`
-  );
+  assert.equal(toGoogleDriveOpenUrl(link), link);
+});
+
+test('accepts ambiguous legacy Drive links without treating them as files', () => {
+  const link = `https://drive.google.com/open?id=${folderId}&usp=drive_fs`;
+
+  assert.deepEqual(validateGoogleDriveUrl(link), { value: link });
+  assert.equal(getGoogleDriveResourceType(link), 'drive');
+  assert.equal(toGoogleDriveOpenUrl(link), link);
 });
 
 test('rejects non-Google Drive and malformed links', () => {

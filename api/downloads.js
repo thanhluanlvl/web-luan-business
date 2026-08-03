@@ -4,7 +4,7 @@ import {
   getGoogleDriveResourceType,
   isAdminRequest,
   query,
-  toGoogleDriveDownloadUrl,
+  toGoogleDriveOpenUrl,
   validateGoogleDriveUrl,
 } from '../lib/downloads-store.js';
 
@@ -47,7 +47,7 @@ export default async function handler(req, res) {
           return res.status(404).json({ error: 'Không tìm thấy phần mềm.' });
         }
 
-        return res.redirect(302, toGoogleDriveDownloadUrl(result.rows[0].google_drive_url));
+        return res.redirect(302, toGoogleDriveOpenUrl(result.rows[0].google_drive_url));
       }
 
       const includeHidden = firstQueryValue(req.query?.admin) === '1';
@@ -63,7 +63,7 @@ export default async function handler(req, res) {
       `);
 
       const downloads = result.rows.map((row) => {
-        const resourceType = getGoogleDriveResourceType(row.google_drive_url) || 'file';
+        const resourceType = getGoogleDriveResourceType(row.google_drive_url) || 'drive';
         if (includeHidden) return { ...row, resource_type: resourceType };
 
         const publicRow = { ...row, resource_type: resourceType };

@@ -17,6 +17,12 @@ import './Home.css';
 
 const API_BASE = import.meta.env.DEV ? 'http://localhost:3001' : '';
 
+const getDriveLabels = (resourceType) => {
+  if (resourceType === 'folder') return { type: 'Thư mục Google Drive', action: 'Mở thư mục' };
+  if (resourceType === 'file') return { type: 'File Google Drive', action: 'Mở file' };
+  return { type: 'Link Google Drive', action: 'Mở Drive' };
+};
+
 const Home = () => {
   const [projects, setProjects] = useState([]);
   const [selectedProject, setSelectedProject] = useState(null);
@@ -209,13 +215,13 @@ const Home = () => {
                     <p>{item.description || 'Phần mềm hỗ trợ cài đặt dành cho máy tính.'}</p>
                   </div>
                   <div className="software-card-footer">
-                    <span><ShieldCheck size={15} /> {item.resource_type === 'folder' ? 'Thư mục Google Drive' : 'File Google Drive'}</span>
+                    <span><ShieldCheck size={15} /> {getDriveLabels(item.resource_type).type}</span>
                     <a
                       href={`${API_BASE}/api/downloads?action=download&id=${item.id}`}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      {item.resource_type === 'folder' ? 'Mở thư mục' : 'Tải xuống'} <Download size={17} />
+                      {getDriveLabels(item.resource_type).action} <Download size={17} />
                     </a>
                   </div>
                 </article>
