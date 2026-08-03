@@ -27,7 +27,7 @@ export const services = [
     id: 5,
     title: "Đổ mực in",
     description: "Đổ mực in chính hãng, chất lượng cao, bản in đậm đẹp, bảo vệ tuổi thọ máy in.",
-    image: "/hero_bg_1777256453730.png"
+    image: "/service_toner_refill.png"
   }
 ];
 
