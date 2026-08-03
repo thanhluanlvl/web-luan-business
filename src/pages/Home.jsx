@@ -13,6 +13,9 @@ import {
   HardDriveDownload,
   Search,
   ShieldCheck,
+  CheckCircle2,
+  Paintbrush,
+  Wrench,
 } from 'lucide-react';
 import { services } from '../data';
 import { printerArticles } from '../data/printerArticles';
@@ -40,22 +43,23 @@ const Home = () => {
   useEffect(() => {
     let settleTimer;
 
-    const scrollToDownloads = () => {
-      if (window.location.hash !== '#downloads') return;
+    const scrollToHash = () => {
+      const targetId = window.location.hash.slice(1);
+      if (!targetId) return;
 
       window.requestAnimationFrame(() => {
-        document.getElementById('downloads')?.scrollIntoView({ block: 'start' });
+        document.getElementById(targetId)?.scrollIntoView({ block: 'start' });
       });
       settleTimer = window.setTimeout(() => {
-        document.getElementById('downloads')?.scrollIntoView({ block: 'start' });
+        document.getElementById(targetId)?.scrollIntoView({ block: 'start' });
       }, 150);
     };
 
-    scrollToDownloads();
-    window.addEventListener('hashchange', scrollToDownloads);
+    scrollToHash();
+    window.addEventListener('hashchange', scrollToHash);
     return () => {
       window.clearTimeout(settleTimer);
-      window.removeEventListener('hashchange', scrollToDownloads);
+      window.removeEventListener('hashchange', scrollToHash);
     };
   }, []);
 
@@ -128,7 +132,7 @@ const Home = () => {
               Chúng tôi cam kết mang lại chất lượng dịch vụ tốt nhất cho bạn.
             </p>
             <div className="hero-actions">
-              <a href="#services" className="btn-primary">Khám phá dịch vụ <Zap size={20} className="tech-icon-orange" /></a>
+              <a href="#service-paths" className="btn-primary">Chọn nhóm dịch vụ <Zap size={20} className="tech-icon-orange" /></a>
               <a href="#contact" className="btn-outline" style={{ color: 'white', borderColor: 'white' }}>Liên hệ ngay</a>
             </div>
           </div>
@@ -154,6 +158,43 @@ const Home = () => {
             </a>
           </div>
 
+        </div>
+      </section>
+
+      {/* Service Paths */}
+      <section id="service-paths" className="section home-segment-section">
+        <div className="container">
+          <div className="home-segment-heading">
+            <span>ĐI ĐÚNG NHÓM DỊCH VỤ BẠN CẦN</span>
+            <h2>Sửa chữa thiết bị hay in ấn quảng cáo?</h2>
+            <p>Hai landing page tách biệt giúp bạn xem đúng nội dung, cam kết và phương án liên hệ mà không phải lọc qua dịch vụ không liên quan.</p>
+          </div>
+          <div className="home-segment-grid">
+            <Link className="home-segment-card home-segment-repair" to="/dich-vu-sua-chua-thiet-bi-an-duong">
+              <img src="/vn_printer_repair.png" alt="Dịch vụ sửa máy tính, máy in tại An Dương" />
+              <div>
+                <span><Wrench size={17} /> SỬA CHỮA THIẾT BỊ</span>
+                <h2>Máy tính, máy in & photocopy</h2>
+                <p>Kiểm tra lỗi, sửa chữa, đổ mực và cho thuê thiết bị với phương án rõ ràng.</p>
+                <strong>Xem landing page sửa chữa <ArrowRight size={18} /></strong>
+              </div>
+            </Link>
+            <Link className="home-segment-card home-segment-advertising" to="/dich-vu-in-an-quang-cao-an-duong">
+              <img src="/article_banner_printing.png" alt="Dịch vụ in bạt, in decal và biển hiệu tại An Dương" />
+              <div>
+                <span><Paintbrush size={17} /> IN ẤN & QUẢNG CÁO</span>
+                <h2>In bạt, decal & thi công biển hiệu</h2>
+                <p>Thiết kế, duyệt file, sản xuất và thi công đúng vật liệu cho từng mặt bằng.</p>
+                <strong>Xem landing page in ấn <ArrowRight size={18} /></strong>
+              </div>
+            </Link>
+          </div>
+          <ul className="home-trust-band" aria-label="Cam kết dịch vụ">
+            <li><CheckCircle2 size={19} /> Địa chỉ thật: 296 Đặng Cương</li>
+            <li><CheckCircle2 size={19} /> Báo phương án trước khi làm</li>
+            <li><CheckCircle2 size={19} /> Hỗ trợ tận nơi quanh An Dương</li>
+            <li><CheckCircle2 size={19} /> Gọi & Zalo: 0966.228.133</li>
+          </ul>
         </div>
       </section>
 

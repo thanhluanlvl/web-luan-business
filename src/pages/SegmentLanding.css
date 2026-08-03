@@ -1,0 +1,447 @@
+.segment-landing {
+  background: #f8fafc;
+}
+
+.segment-hero {
+  padding: 4.8rem 0;
+  color: white;
+  background:
+    radial-gradient(circle at 85% 8%, rgba(59, 130, 246, 0.25), transparent 30%),
+    linear-gradient(135deg, #06152d 0%, #12346b 58%, #1e3a8a 100%);
+}
+
+.segment-advertising .segment-hero {
+  background:
+    radial-gradient(circle at 86% 8%, rgba(251, 191, 36, 0.25), transparent 30%),
+    linear-gradient(135deg, #2c1207 0%, #7c2d12 58%, #c2410c 100%);
+}
+
+.segment-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(380px, 0.95fr);
+  align-items: center;
+  gap: 3rem;
+}
+
+.segment-kicker,
+.segment-section-heading > span,
+.segment-proof-grid > div > span,
+.segment-final-cta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #fb923c;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.segment-advertising .segment-kicker {
+  color: #fed7aa;
+}
+
+.segment-hero h1 {
+  color: white;
+  font-size: clamp(2.45rem, 5vw, 4.4rem);
+  line-height: 1.04;
+  margin: 1rem 0 1.2rem;
+}
+
+.segment-hero-copy > p {
+  max-width: 690px;
+  color: #dbeafe;
+  font-size: 1.05rem;
+}
+
+.segment-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 1.75rem;
+}
+
+.segment-zalo {
+  color: white;
+  border-color: rgba(255, 255, 255, 0.7);
+}
+
+.segment-zalo:hover {
+  color: var(--primary-color);
+  background: white;
+}
+
+.segment-highlights {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.15rem;
+  margin-top: 1.6rem;
+  list-style: none;
+  color: #dbeafe;
+  font-size: 0.86rem;
+}
+
+.segment-highlights li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.segment-hero-image {
+  height: 420px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 1.4rem;
+  box-shadow: 0 24px 55px rgba(0, 0, 0, 0.35);
+}
+
+.segment-hero-image img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.segment-section-heading {
+  max-width: 790px;
+  margin: 0 auto 2.4rem;
+  text-align: center;
+}
+
+.segment-section-heading h2,
+.segment-proof-grid h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.15;
+  margin: 0.65rem 0 0.8rem;
+}
+
+.segment-section-heading p,
+.segment-proof-grid p {
+  color: #64748b;
+}
+
+.segment-trust {
+  background: white;
+}
+
+.segment-trust-grid,
+.segment-process-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.segment-trust-grid article,
+.segment-process-grid li {
+  padding: 1.4rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 1rem;
+  background: #f8fafc;
+}
+
+.segment-trust-grid svg {
+  color: var(--secondary-color);
+}
+
+.segment-trust-grid h3,
+.segment-process-grid h3 {
+  margin: 0.75rem 0 0.45rem;
+  font-size: 1.1rem;
+}
+
+.segment-trust-grid p,
+.segment-process-grid p {
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+.segment-services {
+  background: #eef4fb;
+}
+
+.segment-advertising .segment-services {
+  background: #fff7ed;
+}
+
+.segment-service-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.35rem;
+}
+
+.segment-service-card {
+  display: grid;
+  grid-template-columns: 210px minmax(0, 1fr);
+  overflow: hidden;
+  border: 1px solid #dbe4f0;
+  border-radius: 1rem;
+  background: white;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.segment-service-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+
+.segment-service-image {
+  min-height: 235px;
+  overflow: hidden;
+}
+
+.segment-service-image img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.segment-service-card:hover img {
+  transform: scale(1.035);
+}
+
+.segment-service-card > div {
+  display: flex;
+  flex-direction: column;
+  padding: 1.35rem;
+}
+
+.segment-service-card h3 {
+  font-size: 1.3rem;
+  line-height: 1.2;
+  margin-bottom: 0.7rem;
+}
+
+.segment-service-card h3 a:hover,
+.segment-service-link:hover {
+  color: var(--secondary-color);
+}
+
+.segment-service-card p {
+  color: #64748b;
+  font-size: 0.92rem;
+}
+
+.segment-service-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: auto;
+  padding-top: 1rem;
+  color: var(--primary-color);
+  font-weight: 800;
+  font-size: 0.88rem;
+}
+
+.segment-proof {
+  background: white;
+}
+
+.segment-proof-grid {
+  display: grid;
+  grid-template-columns: minmax(340px, 0.9fr) minmax(0, 1.1fr);
+  align-items: center;
+  gap: 3rem;
+}
+
+.segment-proof-grid figure {
+  height: 470px;
+  overflow: hidden;
+  border-radius: 1.25rem;
+  box-shadow: var(--shadow-lg);
+}
+
+.segment-proof-grid figure img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center 28%;
+}
+
+.segment-proof-grid p + p {
+  margin-top: 0.8rem;
+}
+
+.segment-proof-grid ul {
+  display: grid;
+  gap: 0.65rem;
+  margin-top: 1.2rem;
+  list-style: none;
+}
+
+.segment-proof-grid li {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: #334155;
+  font-weight: 700;
+}
+
+.segment-proof-grid li svg {
+  flex: 0 0 auto;
+  color: var(--secondary-color);
+}
+
+.segment-process {
+  background: #07162f;
+}
+
+.segment-process .segment-section-heading h2 {
+  color: white;
+}
+
+.segment-process-grid {
+  padding: 0;
+  list-style: none;
+  counter-reset: none;
+}
+
+.segment-process-grid li {
+  border-color: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.segment-process-grid li > span {
+  color: #fb923c;
+  font-size: 1.7rem;
+  font-weight: 800;
+}
+
+.segment-process-grid h3 {
+  color: white;
+}
+
+.segment-process-grid p {
+  color: #b8c7dc;
+}
+
+.segment-faq {
+  background: #f8fafc;
+}
+
+.segment-faq-wrap {
+  max-width: 880px;
+}
+
+.segment-faq details {
+  margin-top: 0.8rem;
+  padding: 1.1rem 1.2rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.8rem;
+  background: white;
+}
+
+.segment-faq summary {
+  cursor: pointer;
+  color: var(--primary-color);
+  font-weight: 800;
+}
+
+.segment-faq details p {
+  margin-top: 0.7rem;
+  color: #64748b;
+}
+
+.segment-final-cta {
+  padding: 3rem 0;
+  color: white;
+  background: linear-gradient(135deg, #1e3a8a, #0f2552);
+}
+
+.segment-advertising .segment-final-cta {
+  background: linear-gradient(135deg, #9a3412, #431407);
+}
+
+.segment-final-cta > .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.segment-final-cta h2 {
+  max-width: 760px;
+  margin-top: 0.5rem;
+  color: white;
+  font-size: clamp(1.7rem, 3vw, 2.5rem);
+}
+
+.segment-final-actions {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 0.7rem;
+}
+
+.segment-final-actions a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.8rem 1rem;
+  border-radius: 0.65rem;
+  background: var(--secondary-color);
+  color: white;
+  font-weight: 800;
+}
+
+.segment-final-actions a:last-child {
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  background: transparent;
+}
+
+@media (max-width: 980px) {
+  .segment-hero-grid,
+  .segment-proof-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .segment-trust-grid,
+  .segment-process-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .segment-hero-image {
+    height: 360px;
+  }
+}
+
+@media (max-width: 760px) {
+  .segment-service-grid,
+  .segment-service-card {
+    grid-template-columns: 1fr;
+  }
+
+  .segment-service-image {
+    height: 240px;
+    min-height: 0;
+  }
+
+  .segment-final-cta > .container {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 560px) {
+  .segment-hero {
+    padding: 3.2rem 0;
+  }
+
+  .segment-trust-grid,
+  .segment-process-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .segment-hero-image,
+  .segment-proof-grid figure {
+    height: 300px;
+  }
+
+  .segment-final-actions {
+    width: 100%;
+    flex-direction: column;
+  }
+}

@@ -38,15 +38,15 @@ const Navbar = () => {
         </Link>
         <ul className="nav-links">
           <li><Link to="/">Trang chủ</Link></li>
-          <li><a href="#services">Dịch vụ</a></li>
+          <li><Link to="/dich-vu-sua-chua-thiet-bi-an-duong">Sửa chữa</Link></li>
+          <li><Link to="/dich-vu-in-an-quang-cao-an-duong">In ấn</Link></li>
           <li>
             <Link to="/#downloads" className="download-nav-link" onClick={handleDownloadClick}>
               Download
             </Link>
           </li>
-          <li><a href="#projects">Dự án</a></li>
           <li><Link to="/pdf-tools" style={{ color: 'var(--secondary-color)', fontWeight: 'bold' }}>Công cụ PDF</Link></li>
-          <li><a href="#contact">Liên hệ</a></li>
+          <li><Link to="/#contact">Liên hệ</Link></li>
           <li>
             <Link to="/admin" className="btn-primary" style={{ padding: '0.5rem 1rem', fontSize: '0.9rem' }}>
               Quản lý

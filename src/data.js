@@ -5,7 +5,7 @@ export const services = [
     description: "Khắc phục mọi sự cố máy tính, laptop nhanh chóng, chuyên nghiệp. Cài đặt phần mềm, nâng cấp phần cứng.",
     image: "/luan_repair_computer.png",
     features: ["Kiểm tra đúng lỗi", "Hỗ trợ tận nơi"],
-    href: "/#contact"
+    href: "/dich-vu-sua-chua-thiet-bi-an-duong"
   },
   {
     id: 2,
