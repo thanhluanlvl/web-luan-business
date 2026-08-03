@@ -111,7 +111,7 @@ const Home = () => {
   return (
     <div className="home-wrapper">
       {/* Hero Section */}
-      <section className="hero" style={{ backgroundImage: `url('/luan_storefront.png')` }}>
+      <section className="hero" style={{ backgroundImage: `url('/luan_storefront.png?v=296')` }}>
         <div className="hero-layout animate-fade-in">
           
           {/* Cột trái: Thông tin */}
