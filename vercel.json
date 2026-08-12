@@ -1,6 +1,9 @@
 {
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/$1" },
+    { "source": "/thue/chinh-sach-bao-mat", "destination": "/thue/chinh-sach-bao-mat.html" },
+    { "source": "/thue/dieu-khoan-su-dung", "destination": "/thue/dieu-khoan-su-dung.html" },
+    { "source": "/thue/xoa-du-lieu", "destination": "/thue/xoa-du-lieu.html" },
     { "source": "/((?!api/).*)", "destination": "/index.html" }
   ],
   "functions": {
