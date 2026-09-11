@@ -1,98 +1,118 @@
 .segment-landing {
-  background: #f8fafc;
+  background: var(--canvas);
 }
 
+/* ── Hero ── */
 .segment-hero {
-  padding: 4.8rem 0;
-  color: white;
-  background:
-    radial-gradient(circle at 85% 8%, rgba(59, 130, 246, 0.25), transparent 30%),
-    linear-gradient(135deg, #06152d 0%, #12346b 58%, #1e3a8a 100%);
+  position: relative;
+  overflow: hidden;
+  padding: clamp(3.25rem, 6vw, 5rem) 0;
+  color: #fff;
+  background-color: var(--navy-950);
+  background-image: var(--blueprint);
+  background-size: var(--blueprint-size);
 }
 
 .segment-advertising .segment-hero {
-  background:
-    radial-gradient(circle at 86% 8%, rgba(251, 191, 36, 0.25), transparent 30%),
-    linear-gradient(135deg, #2c1207 0%, #7c2d12 58%, #c2410c 100%);
+  background-color: var(--warm-950);
+  background-image: var(--blueprint-warm);
 }
 
 .segment-hero-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(380px, 0.95fr);
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
   align-items: center;
-  gap: 3rem;
+  gap: clamp(2rem, 5vw, 3.5rem);
 }
 
-.segment-kicker,
-.segment-section-heading > span,
-.segment-proof-grid > div > span,
-.segment-final-cta span {
+.segment-kicker {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  color: #fb923c;
+  gap: 0.45rem;
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.07);
+  color: #fed7aa;
   font-size: 0.76rem;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: 0.07em;
   text-transform: uppercase;
 }
 
-.segment-advertising .segment-kicker {
-  color: #fed7aa;
+.segment-kicker svg {
+  color: #fb923c;
 }
 
 .segment-hero h1 {
-  color: white;
-  font-size: clamp(2.45rem, 5vw, 4.4rem);
-  line-height: 1.04;
-  margin: 1rem 0 1.2rem;
+  margin: 1.1rem 0;
+  color: #fff;
+  font-size: clamp(2.1rem, 3.8vw, 3.1rem);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.025em;
 }
 
 .segment-hero-copy > p {
   max-width: 690px;
-  color: #dbeafe;
-  font-size: 1.05rem;
+  color: #c9d6ea;
+  font-size: 1.07rem;
+  line-height: 1.7;
+}
+
+.segment-advertising .segment-hero-copy > p {
+  color: #f3dccb;
 }
 
 .segment-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.8rem;
-  margin-top: 1.75rem;
+  gap: 0.75rem;
+  margin-top: 1.9rem;
 }
 
 .segment-zalo {
-  color: white;
-  border-color: rgba(255, 255, 255, 0.7);
+  border-color: rgba(255, 255, 255, 0.32);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
 }
 
 .segment-zalo:hover {
-  color: var(--primary-color);
-  background: white;
+  border-color: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.16);
+  color: #fff;
 }
 
 .segment-highlights {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem 1.15rem;
-  margin-top: 1.6rem;
+  gap: 0.6rem 1.3rem;
+  margin-top: 1.75rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
   list-style: none;
-  color: #dbeafe;
-  font-size: 0.86rem;
+  color: #dce6f5;
+  font-size: 0.9rem;
+  font-weight: 500;
 }
 
 .segment-highlights li {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.45rem;
+}
+
+.segment-highlights svg {
+  flex: none;
+  color: #fb923c;
 }
 
 .segment-hero-image {
-  height: 420px;
+  aspect-ratio: 5 / 4;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  border-radius: 1.4rem;
-  box-shadow: 0 24px 55px rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 24px;
+  box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.7);
 }
 
 .segment-hero-image img {
@@ -102,26 +122,40 @@
   object-fit: cover;
 }
 
+/* ── Tiêu đề khối ── */
 .segment-section-heading {
-  max-width: 790px;
-  margin: 0 auto 2.4rem;
+  max-width: 780px;
+  margin: 0 auto 2.75rem;
   text-align: center;
+}
+
+.segment-section-heading > span,
+.segment-proof-grid > div > span,
+.segment-final-cta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--accent-text);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .segment-section-heading h2,
 .segment-proof-grid h2 {
-  font-size: clamp(2rem, 4vw, 3rem);
-  line-height: 1.15;
-  margin: 0.65rem 0 0.8rem;
+  margin: 0.6rem 0 0.75rem;
+  font-size: clamp(1.9rem, 3.8vw, 2.7rem);
 }
 
 .segment-section-heading p,
 .segment-proof-grid p {
-  color: #64748b;
+  color: var(--muted);
 }
 
+/* ── Cam kết ── */
 .segment-trust {
-  background: white;
+  background: var(--surface);
 }
 
 .segment-trust-grid,
@@ -131,63 +165,73 @@
   gap: 1rem;
 }
 
-.segment-trust-grid article,
-.segment-process-grid li {
-  padding: 1.4rem;
-  border: 1px solid #e2e8f0;
-  border-radius: 1rem;
-  background: #f8fafc;
+.segment-trust-grid article {
+  padding: 1.5rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--canvas);
 }
 
 .segment-trust-grid svg {
-  color: var(--secondary-color);
+  width: 50px;
+  height: 50px;
+  padding: 12px;
+  border-radius: 14px;
+  background: var(--brand-50);
+  color: var(--brand);
+}
+
+.segment-advertising .segment-trust-grid svg {
+  background: var(--accent-50);
+  color: var(--accent-bright);
 }
 
 .segment-trust-grid h3,
 .segment-process-grid h3 {
-  margin: 0.75rem 0 0.45rem;
-  font-size: 1.1rem;
+  margin: 1rem 0 0.4rem;
+  font-size: 1.08rem;
 }
 
-.segment-trust-grid p,
-.segment-process-grid p {
-  color: #64748b;
-  font-size: 0.9rem;
+.segment-trust-grid p {
+  color: var(--muted);
+  font-size: 0.92rem;
 }
 
+/* ── Dịch vụ ── */
 .segment-services {
-  background: #eef4fb;
+  background: var(--canvas);
 }
 
 .segment-advertising .segment-services {
-  background: #fff7ed;
+  background: var(--warm-canvas);
 }
 
 .segment-service-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1.35rem;
+  gap: 1.5rem;
 }
 
 .segment-service-card {
   display: grid;
-  grid-template-columns: 210px minmax(0, 1fr);
+  grid-template-columns: 220px minmax(0, 1fr);
   overflow: hidden;
-  border: 1px solid #dbe4f0;
-  border-radius: 1rem;
-  background: white;
-  box-shadow: var(--shadow-sm);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .segment-service-card:hover {
-  transform: translateY(-3px);
+  transform: translateY(-4px);
   box-shadow: var(--shadow-lg);
 }
 
 .segment-service-image {
-  min-height: 235px;
+  display: block;
+  min-height: 230px;
   overflow: hidden;
+  background: var(--brand-50);
 }
 
 .segment-service-image img {
@@ -195,33 +239,31 @@
   height: 100%;
   display: block;
   object-fit: cover;
-  transition: transform 0.4s ease;
+  transition: transform 0.6s ease;
 }
 
 .segment-service-card:hover img {
-  transform: scale(1.035);
+  transform: scale(1.04);
 }
 
 .segment-service-card > div {
   display: flex;
   flex-direction: column;
-  padding: 1.35rem;
+  padding: 1.4rem;
 }
 
 .segment-service-card h3 {
-  font-size: 1.3rem;
-  line-height: 1.2;
-  margin-bottom: 0.7rem;
+  margin-bottom: 0.6rem;
+  font-size: 1.25rem;
 }
 
-.segment-service-card h3 a:hover,
-.segment-service-link:hover {
-  color: var(--secondary-color);
+.segment-service-card h3 a:hover {
+  color: var(--accent-text);
 }
 
 .segment-service-card p {
-  color: #64748b;
-  font-size: 0.92rem;
+  color: var(--muted);
+  font-size: 0.93rem;
 }
 
 .segment-service-link {
@@ -230,26 +272,35 @@
   gap: 0.4rem;
   margin-top: auto;
   padding-top: 1rem;
-  color: var(--primary-color);
-  font-weight: 800;
-  font-size: 0.88rem;
+  color: var(--brand);
+  font-size: 0.92rem;
+  font-weight: 700;
 }
 
+.segment-advertising .segment-service-link {
+  color: var(--accent-text);
+}
+
+.segment-service-link:hover {
+  gap: 0.65rem;
+}
+
+/* ── Minh chứng ── */
 .segment-proof {
-  background: white;
+  background: var(--surface);
 }
 
 .segment-proof-grid {
   display: grid;
-  grid-template-columns: minmax(340px, 0.9fr) minmax(0, 1.1fr);
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
   align-items: center;
-  gap: 3rem;
+  gap: clamp(2rem, 5vw, 3.5rem);
 }
 
 .segment-proof-grid figure {
-  height: 470px;
+  height: 480px;
   overflow: hidden;
-  border-radius: 1.25rem;
+  border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
 }
 
@@ -262,64 +313,87 @@
 }
 
 .segment-proof-grid p + p {
-  margin-top: 0.8rem;
+  margin-top: 0.85rem;
 }
 
 .segment-proof-grid ul {
   display: grid;
-  gap: 0.65rem;
-  margin-top: 1.2rem;
+  gap: 0.6rem;
+  margin-top: 1.3rem;
   list-style: none;
 }
 
 .segment-proof-grid li {
   display: flex;
-  align-items: center;
-  gap: 0.55rem;
-  color: #334155;
-  font-weight: 700;
+  align-items: flex-start;
+  gap: 0.6rem;
+  color: var(--ink-2);
+  font-weight: 600;
 }
 
 .segment-proof-grid li svg {
-  flex: 0 0 auto;
-  color: var(--secondary-color);
+  flex: none;
+  margin-top: 0.2rem;
+  color: var(--accent-bright);
 }
 
+/* ── Quy trình ── */
 .segment-process {
-  background: #07162f;
+  background-color: var(--navy-950);
+  background-image: var(--blueprint);
+  background-size: var(--blueprint-size);
+}
+
+.segment-advertising .segment-process {
+  background-color: var(--warm-950);
+  background-image: var(--blueprint-warm);
+}
+
+.segment-process .segment-section-heading > span {
+  color: #fdba74;
 }
 
 .segment-process .segment-section-heading h2 {
-  color: white;
+  color: #fff;
 }
 
 .segment-process-grid {
   padding: 0;
   list-style: none;
-  counter-reset: none;
 }
 
 .segment-process-grid li {
-  border-color: rgba(255, 255, 255, 0.12);
-  background: rgba(255, 255, 255, 0.07);
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.03));
 }
 
 .segment-process-grid li > span {
-  color: #fb923c;
-  font-size: 1.7rem;
+  width: 44px;
+  height: 44px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 12px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 1rem;
   font-weight: 800;
+  font-variant-numeric: tabular-nums;
 }
 
 .segment-process-grid h3 {
-  color: white;
+  color: #fff;
 }
 
 .segment-process-grid p {
   color: #b8c7dc;
+  font-size: 0.92rem;
 }
 
+/* ── Hỏi đáp ── */
 .segment-faq {
-  background: #f8fafc;
+  background: var(--canvas);
 }
 
 .segment-faq-wrap {
@@ -327,28 +401,64 @@
 }
 
 .segment-faq details {
-  margin-top: 0.8rem;
-  padding: 1.1rem 1.2rem;
-  border: 1px solid #e2e8f0;
-  border-radius: 0.8rem;
-  background: white;
+  margin-top: 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.segment-faq details[open] {
+  border-color: var(--line-strong);
+  box-shadow: var(--shadow-md);
 }
 
 .segment-faq summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 56px;
+  padding: 0.9rem 1.25rem;
   cursor: pointer;
-  color: var(--primary-color);
-  font-weight: 800;
+  list-style: none;
+  color: var(--brand-ink);
+  font-weight: 700;
+}
+
+.segment-faq summary::-webkit-details-marker {
+  display: none;
+}
+
+.segment-faq summary::after {
+  content: '+';
+  flex: none;
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--brand-50);
+  color: var(--brand);
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.segment-faq details[open] summary::after {
+  content: '−';
 }
 
 .segment-faq details p {
-  margin-top: 0.7rem;
-  color: #64748b;
+  padding: 0 1.25rem 1.15rem;
+  color: var(--muted);
 }
 
+/* ── Kêu gọi cuối trang ── */
 .segment-final-cta {
-  padding: 3rem 0;
-  color: white;
-  background: linear-gradient(135deg, #1e3a8a, #0f2552);
+  padding: clamp(2.5rem, 5vw, 3.5rem) 0;
+  color: #fff;
+  background: linear-gradient(135deg, var(--brand) 0%, var(--navy-900) 100%);
 }
 
 .segment-advertising .segment-final-cta {
@@ -362,16 +472,24 @@
   gap: 2rem;
 }
 
+.segment-final-cta span {
+  color: #fdba74;
+}
+
+.segment-advertising .segment-final-cta span {
+  color: #fed7aa;
+}
+
 .segment-final-cta h2 {
   max-width: 760px;
   margin-top: 0.5rem;
-  color: white;
-  font-size: clamp(1.7rem, 3vw, 2.5rem);
+  color: #fff;
+  font-size: clamp(1.6rem, 3vw, 2.3rem);
 }
 
 .segment-final-actions {
   display: flex;
-  flex: 0 0 auto;
+  flex: none;
   gap: 0.7rem;
 }
 
@@ -379,17 +497,34 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.4rem;
-  padding: 0.8rem 1rem;
-  border-radius: 0.65rem;
-  background: var(--secondary-color);
-  color: white;
-  font-weight: 800;
+  gap: 0.45rem;
+  min-height: 52px;
+  padding: 0.8rem 1.3rem;
+  border: 1.5px solid transparent;
+  border-radius: 12px;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.segment-final-actions a:hover {
+  background: var(--accent-hover);
+}
+
+.segment-advertising .segment-final-actions a:first-child {
+  background: #fff;
+  color: var(--accent-text);
 }
 
 .segment-final-actions a:last-child {
-  border: 1px solid rgba(255, 255, 255, 0.55);
-  background: transparent;
+  border-color: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+}
+
+.segment-final-actions a:last-child:hover {
+  background: rgba(255, 255, 255, 0.16);
 }
 
 @media (max-width: 980px) {
@@ -403,8 +538,8 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .segment-hero-image {
-    height: 360px;
+  .segment-proof-grid figure {
+    height: 380px;
   }
 }
 
@@ -415,7 +550,7 @@
   }
 
   .segment-service-image {
-    height: 240px;
+    height: 220px;
     min-height: 0;
   }
 
@@ -426,8 +561,8 @@
 }
 
 @media (max-width: 560px) {
-  .segment-hero {
-    padding: 3.2rem 0;
+  .segment-actions > a {
+    flex: 1 1 100%;
   }
 
   .segment-trust-grid,
@@ -435,7 +570,11 @@
     grid-template-columns: 1fr;
   }
 
-  .segment-hero-image,
+  .segment-hero-image {
+    aspect-ratio: 4 / 3;
+    border-radius: 18px;
+  }
+
   .segment-proof-grid figure {
     height: 300px;
   }

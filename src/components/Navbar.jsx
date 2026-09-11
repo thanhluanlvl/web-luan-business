@@ -1,12 +1,34 @@
-import { Link, useNavigate } from 'react-router-dom';
-import { Cpu } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { Megaphone, Menu, Phone, Wrench, X } from 'lucide-react';
+import { PHONE_DISPLAY, PHONE_TEL } from '../lib/contact';
 import './Navbar.css';
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(() => typeof window !== 'undefined' && window.scrollY > 8);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  useEffect(() => {
+    if (!open) return undefined;
+    const onKey = (event) => {
+      if (event.key === 'Escape') setOpen(false);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [open]);
+
+  const close = () => setOpen(false);
 
   const handleDownloadClick = (event) => {
     event.preventDefault();
+    setOpen(false);
     navigate('/#downloads');
 
     const revealDownloads = (attempt = 0) => {
@@ -25,36 +47,46 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="navbar">
-      <div className="container nav-container">
-        <Link to="/" className="nav-logo">
-          <div className="logo-icon">
-            <Cpu size={28} className="tech-icon" />
-          </div>
-          <div className="logo-text">
-            <span>Nguyễn Thành Luân</span>
-            <span className="logo-subtitle">Sửa chữa & Thiết kế</span>
-          </div>
+    <header className={`site-header${scrolled ? ' is-scrolled' : ''}${open ? ' is-open' : ''}`}>
+      <nav className="container nav-bar" aria-label="Điều hướng chính">
+        <Link to="/" className="nav-brand" onClick={close}>
+          <span className="brand-mark" aria-hidden="true">
+            <Wrench size={20} strokeWidth={2.4} />
+            <span className="brand-mark-badge"><Megaphone size={11} strokeWidth={2.6} /></span>
+          </span>
+          <span className="brand-text">
+            <strong>Nguyễn Thành Luân</strong>
+            <small>Công nghệ &amp; Quảng cáo</small>
+          </span>
         </Link>
-        <ul className="nav-links">
-          <li><Link to="/">Trang chủ</Link></li>
-          <li><Link to="/dich-vu-sua-chua-thiet-bi-an-duong">Sửa chữa</Link></li>
-          <li><Link to="/dich-vu-in-an-quang-cao-an-duong">In ấn</Link></li>
-          <li>
-            <Link to="/#downloads" className="download-nav-link" onClick={handleDownloadClick}>
-              Download
-            </Link>
-          </li>
-          <li><Link to="/pdf-tools" style={{ color: 'var(--secondary-color)', fontWeight: 'bold' }}>Công cụ PDF</Link></li>
-          <li><Link to="/#contact">Liên hệ</Link></li>
-          <li>
-            <Link to="/admin" className="btn-primary" style={{ padding: '0.5rem 1rem', fontSize: '0.9rem' }}>
-              Quản lý
-            </Link>
-          </li>
-        </ul>
-      </div>
-    </nav>
+
+        <button
+          type="button"
+          className="nav-toggle"
+          aria-expanded={open}
+          aria-controls="site-menu"
+          aria-label={open ? 'Đóng menu' : 'Mở menu'}
+          onClick={() => setOpen((value) => !value)}
+        >
+          {open ? <X size={24} /> : <Menu size={24} />}
+        </button>
+
+        <div className="nav-menu" id="site-menu">
+          <ul className="nav-links">
+            <li><NavLink to="/" end onClick={close}>Trang chủ</NavLink></li>
+            <li><NavLink to="/dich-vu-sua-chua-thiet-bi-an-duong" onClick={close}>Sửa chữa</NavLink></li>
+            <li><NavLink to="/dich-vu-in-an-quang-cao-an-duong" onClick={close}>In ấn</NavLink></li>
+            <li><Link to="/#downloads" onClick={handleDownloadClick}>Download</Link></li>
+            <li><NavLink to="/pdf-tools" onClick={close}>Công cụ PDF</NavLink></li>
+            <li><Link to="/#contact" onClick={close}>Liên hệ</Link></li>
+          </ul>
+          <div className="nav-actions">
+            <Link to="/admin" className="nav-admin" onClick={close}>Quản lý</Link>
+            <a href={PHONE_TEL} className="btn-primary nav-call"><Phone size={18} /> {PHONE_DISPLAY}</a>
+          </div>
+        </div>
+      </nav>
+    </header>
   );
 };
 

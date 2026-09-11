@@ -64,7 +64,7 @@
 }
 
 .pdf-tab:hover {
-  background: rgba(0, 240, 255, 0.05);
+  background: rgba(96, 165, 250, 0.05);
   color: white;
 }
 
@@ -100,7 +100,7 @@
 
 .upload-zone {
   position: relative;
-  border: 2px dashed rgba(0, 240, 255, 0.3);
+  border: 2px dashed rgba(96, 165, 250, 0.3);
   border-radius: 12px;
   background: rgba(0, 0, 0, 0.3);
   transition: all 0.3s;
@@ -109,7 +109,7 @@
 
 .upload-zone:hover {
   border-color: var(--primary-color);
-  background: rgba(0, 240, 255, 0.05);
+  background: rgba(96, 165, 250, 0.05);
 }
 
 .upload-zone input[type="file"] {

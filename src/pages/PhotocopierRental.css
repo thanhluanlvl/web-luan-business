@@ -1,102 +1,134 @@
 .rental-page {
-  background: #f8fafc;
+  background: var(--canvas);
 }
 
+/* ── Hero ── */
 .rental-hero {
-  padding: 5.5rem 0 4.5rem;
-  background:
-    radial-gradient(circle at 8% 18%, rgba(59, 130, 246, 0.18), transparent 28%),
-    linear-gradient(135deg, #07162f 0%, #12346b 58%, #1e3a8a 100%);
-  color: white;
+  padding: clamp(3.25rem, 6vw, 5rem) 0;
+  color: #fff;
+  background-color: var(--navy-950);
+  background-image: var(--blueprint);
+  background-size: var(--blueprint-size);
 }
 
 .rental-hero-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(360px, 0.95fr);
-  gap: 3.5rem;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
   align-items: center;
+  gap: clamp(2rem, 5vw, 3.5rem);
 }
 
-.rental-kicker,
+.rental-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.07);
+  color: #fed7aa;
+  font-size: 0.84rem;
+  font-weight: 600;
+}
+
+.rental-kicker svg {
+  color: #fb923c;
+}
+
 .rental-section-label {
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  color: #fb923c;
-  font-weight: 800;
-  letter-spacing: 0.08em;
+  color: var(--accent-text);
   font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
 }
 
 .rental-hero h1 {
-  color: white;
-  font-size: clamp(2.5rem, 5vw, 4.4rem);
-  line-height: 1.04;
-  margin: 1rem 0 1.25rem;
   max-width: 760px;
+  margin: 1.1rem 0;
+  color: #fff;
+  font-size: clamp(2.1rem, 3.8vw, 3.1rem);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.025em;
 }
 
 .rental-hero-copy > p {
   max-width: 690px;
-  color: #dbeafe;
-  font-size: 1.08rem;
+  color: #c9d6ea;
+  font-size: 1.07rem;
+  line-height: 1.7;
 }
 
 .rental-hero-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.85rem;
-  margin: 1.8rem 0;
+  gap: 0.75rem;
+  margin-top: 1.9rem;
 }
 
 .rental-zalo {
-  color: white;
-  border-color: rgba(255, 255, 255, 0.65);
+  border-color: rgba(255, 255, 255, 0.32);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
 }
 
 .rental-zalo:hover {
-  background: white;
-  color: var(--primary-color);
+  border-color: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.16);
+  color: #fff;
 }
 
 .rental-trust-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem 1.2rem;
+  gap: 0.6rem 1.3rem;
+  margin-top: 1.75rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
   list-style: none;
-  color: #dbeafe;
-  font-size: 0.88rem;
+  color: #dce6f5;
+  font-size: 0.9rem;
+  font-weight: 500;
 }
 
 .rental-trust-list li {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
+  gap: 0.45rem;
+}
+
+.rental-trust-list svg {
+  flex: none;
+  color: #fb923c;
 }
 
 .rental-hero-image {
-  overflow: hidden;
-  border-radius: 1.5rem;
-  box-shadow: 0 28px 65px rgba(0, 0, 0, 0.35);
-  border: 1px solid rgba(255, 255, 255, 0.25);
   aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 24px;
+  box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.7);
 }
 
 .rental-hero-image img {
   width: 100%;
   height: 100%;
+  display: block;
   object-fit: cover;
   object-position: center 28%;
-  display: block;
 }
 
+/* ── Nội dung ── */
 .rental-article {
-  padding-top: 5rem;
-  padding-bottom: 5rem;
+  padding-top: clamp(3.5rem, 7vw, 5rem);
+  padding-bottom: clamp(3.5rem, 7vw, 5rem);
 }
 
 .rental-intro {
-  max-width: 900px;
+  max-width: 860px;
   margin: 0 auto 3.5rem;
   text-align: center;
 }
@@ -105,57 +137,66 @@
 .rental-process h2,
 .rental-faq h2,
 .rental-toner-block h2 {
-  font-size: clamp(2rem, 4vw, 3rem);
-  line-height: 1.15;
-  margin: 0.65rem 0 1.25rem;
+  margin: 0.6rem 0 1rem;
+  font-size: clamp(1.9rem, 3.8vw, 2.7rem);
 }
 
 .rental-intro p,
 .rental-toner-copy p {
-  color: #475569;
-  font-size: 1.02rem;
   margin-top: 1rem;
+  color: var(--ink-2);
+  font-size: 1.03rem;
+  line-height: 1.75;
+}
+
+.rental-intro strong,
+.rental-toner-copy strong {
+  color: var(--brand-ink);
 }
 
 .rental-benefit-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1.1rem;
+  gap: 1rem;
   margin-bottom: 4.5rem;
 }
 
 .rental-benefit-card {
-  background: white;
-  border: 1px solid #e2e8f0;
-  border-radius: 1.1rem;
   padding: 1.5rem;
-  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
 }
 
 .rental-benefit-card > svg {
-  color: var(--secondary-color);
+  width: 50px;
+  height: 50px;
   margin-bottom: 1rem;
+  padding: 11px;
+  border-radius: 14px;
+  background: var(--accent-50);
+  color: var(--accent-bright);
 }
 
 .rental-benefit-card h3 {
-  font-size: 1.12rem;
-  margin-bottom: 0.65rem;
+  margin-bottom: 0.55rem;
+  font-size: 1.1rem;
 }
 
 .rental-benefit-card p {
-  color: #64748b;
-  font-size: 0.92rem;
+  color: var(--muted);
+  font-size: 0.93rem;
 }
 
 .rental-toner-block {
   display: grid;
   grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-  gap: 3.5rem;
-  padding: 3rem;
-  border-radius: 1.5rem;
-  background: #eaf2ff;
-  border: 1px solid #cbdcf8;
+  gap: clamp(1.5rem, 4vw, 3.5rem);
   margin-bottom: 4.5rem;
+  padding: clamp(1.5rem, 4vw, 3rem);
+  border: 1px solid var(--brand-100);
+  border-radius: 24px;
+  background: var(--brand-50);
 }
 
 .rental-process,
@@ -165,56 +206,95 @@
 }
 
 .rental-process ol {
-  list-style: none;
-  counter-reset: rental-step;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1rem;
   margin-top: 2rem;
+  list-style: none;
+  counter-reset: rental-step;
 }
 
 .rental-process li {
-  counter-increment: rental-step;
   position: relative;
-  padding: 1.2rem 1.2rem 1.2rem 4rem;
-  background: white;
-  border: 1px solid #e2e8f0;
-  border-radius: 1rem;
-  color: #475569;
+  padding: 1.25rem 1.25rem 1.25rem 4.25rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--ink-2);
+  counter-increment: rental-step;
+}
+
+.rental-process li strong {
+  color: var(--brand-ink);
 }
 
 .rental-process li::before {
   content: counter(rental-step);
   position: absolute;
+  top: 1.1rem;
   left: 1.15rem;
-  top: 1rem;
+  width: 2.25rem;
+  height: 2.25rem;
   display: grid;
   place-items: center;
-  width: 2rem;
-  height: 2rem;
-  border-radius: 50%;
-  background: var(--secondary-color);
-  color: white;
+  border-radius: 10px;
+  background: var(--accent);
+  color: #fff;
   font-weight: 800;
 }
 
 .rental-faq details {
-  background: white;
-  border: 1px solid #e2e8f0;
-  border-radius: 0.85rem;
-  padding: 1rem 1.2rem;
-  margin-top: 0.8rem;
+  margin-top: 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.rental-faq details[open] {
+  border-color: var(--line-strong);
+  box-shadow: var(--shadow-md);
 }
 
 .rental-faq summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 56px;
+  padding: 0.9rem 1.25rem;
   cursor: pointer;
-  color: var(--primary-color);
+  list-style: none;
+  color: var(--brand-ink);
   font-weight: 700;
 }
 
+.rental-faq summary::-webkit-details-marker {
+  display: none;
+}
+
+.rental-faq summary::after {
+  content: '+';
+  flex: none;
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--brand-50);
+  color: var(--brand);
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.rental-faq details[open] summary::after {
+  content: '−';
+}
+
 .rental-faq details p {
-  color: #64748b;
-  margin-top: 0.75rem;
+  padding: 0 1.25rem 1.15rem;
+  color: var(--muted);
 }
 
 .rental-final-cta {
@@ -222,43 +302,49 @@
   align-items: center;
   justify-content: space-between;
   gap: 2rem;
-  padding: 2.25rem 2.5rem;
-  border-radius: 1.25rem;
-  background: linear-gradient(135deg, #102a56, #1e3a8a);
-  color: white;
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  border-radius: 24px;
+  color: #fff;
+  background-color: var(--navy-950);
+  background-image: var(--blueprint);
+  background-size: var(--blueprint-size);
 }
 
 .rental-final-cta span {
-  color: #fb923c;
-  font-weight: 800;
-  font-size: 0.76rem;
+  color: #fdba74;
+  font-size: 0.78rem;
+  font-weight: 700;
   letter-spacing: 0.08em;
 }
 
 .rental-final-cta h2 {
-  color: white;
   max-width: 720px;
   margin-top: 0.4rem;
-  line-height: 1.2;
+  color: #fff;
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
 }
 
 .rental-final-cta a {
   display: inline-flex;
+  flex: none;
   align-items: center;
+  justify-content: center;
   gap: 0.45rem;
-  flex: 0 0 auto;
-  padding: 0.9rem 1.2rem;
-  border-radius: 0.7rem;
-  background: var(--secondary-color);
-  color: white;
-  font-weight: 800;
+  min-height: 54px;
+  padding: 0.85rem 1.4rem;
+  border-radius: 12px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 1.05rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.rental-final-cta a:hover {
+  background: var(--accent-hover);
 }
 
 @media (max-width: 900px) {
-  .rental-hero {
-    padding: 3.5rem 0;
-  }
-
   .rental-hero-grid,
   .rental-toner-block {
     grid-template-columns: 1fr;
@@ -275,12 +361,8 @@
 }
 
 @media (max-width: 600px) {
-  .rental-hero h1 {
-    font-size: 2.35rem;
-  }
-
-  .rental-hero-grid {
-    gap: 2rem;
+  .rental-hero-actions > a {
+    flex: 1 1 100%;
   }
 
   .rental-benefit-grid,
@@ -288,16 +370,7 @@
     grid-template-columns: 1fr;
   }
 
-  .rental-toner-block {
-    padding: 1.5rem;
-  }
-
-  .rental-final-cta {
-    padding: 1.5rem;
-  }
-
   .rental-final-cta a {
     width: 100%;
-    justify-content: center;
   }
 }
