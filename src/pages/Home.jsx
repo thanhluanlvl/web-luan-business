@@ -1,35 +1,67 @@
 import { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import {
-  ArrowDown,
   ArrowRight,
-  BadgeCheck,
   CheckCircle2,
+  ChevronDown,
   ChevronLeft,
   ChevronRight,
-  ClipboardCheck,
   Download,
   HardDriveDownload,
   Images,
-  MapPin,
   MessageCircle,
-  Navigation,
-  Paintbrush,
   Phone,
   Search,
   ShieldCheck,
-  Store,
-  Wrench,
   X,
 } from 'lucide-react';
 import { services } from '../data';
 import { printerArticles } from '../data/printerArticles';
 import { advertisingArticles } from '../data/advertisingArticles';
 import PrinterArticleCard from '../components/PrinterArticleCard';
-import { MAP_URL, PHONE_DISPLAY, PHONE_TEL, ZALO_URL } from '../lib/contact';
+import { PHONE_DISPLAY, PHONE_TEL, ZALO_URL } from '../lib/contact';
 import './Home.css';
 
 const API_BASE = import.meta.env.DEV ? 'http://localhost:3001' : '';
+
+/* Năm nhóm việc chính, xếp tổ ong: ba ô trên, hai ô dưới. */
+const COMB_TILES = [
+  {
+    to: '/sua-may-in-an-duong',
+    label: 'Sửa máy in',
+    cta: 'Xem dịch vụ',
+    image: '/ai_service_printer_repair.jpg',
+    alt: 'Kỹ thuật viên tháo hộp mực khỏi máy in laser trên bàn sửa chữa',
+  },
+  {
+    to: '/dich-vu-sua-chua-thiet-bi-an-duong',
+    label: 'Sửa máy tính',
+    cta: 'Xem dịch vụ',
+    image: '/ai_service_computer_repair.jpg',
+    alt: 'Tay kỹ thuật viên mở nắp lưng laptop để thay linh kiện',
+  },
+  {
+    to: '/do-muc-may-in-an-duong',
+    label: 'Đổ mực tận nơi',
+    cta: 'Xem dịch vụ',
+    image: '/ai_service_toner_refill.jpg',
+    alt: 'Đổ mực vào hộp mực máy in laser bằng phễu',
+  },
+  {
+    to: '/cho-thue-may-photocopy-an-duong',
+    label: 'Thuê photocopy',
+    cta: 'Xem phương án',
+    image: '/ai_service_photocopier.jpg',
+    alt: 'Máy photocopy văn phòng đặt cạnh các ram giấy',
+  },
+  {
+    to: '/dich-vu-in-an-quang-cao-an-duong',
+    label: 'In bạt & biển hiệu',
+    cta: 'Xem dịch vụ',
+    image: '/article_banner_printing.png',
+    alt: 'Máy in khổ lớn đang in bạt quảng cáo',
+  },
+];
 
 const getDriveLabels = (resourceType) => {
   if (resourceType === 'folder') return { type: 'Thư mục Google Drive', action: 'Mở thư mục' };
@@ -132,94 +164,63 @@ const Home = () => {
     if (imageCount > 0) setCurrentImageIndex((prev) => (prev - 1 + imageCount) % imageCount);
   };
 
+  const renderTile = (tile) => (
+    <Link className="comb-tile" to={tile.to} key={tile.to}>
+      <img src={tile.image} alt={tile.alt} loading="lazy" />
+      <span className="comb-label">
+        <b>{tile.label}</b>
+        <span>{tile.cta}</span>
+      </span>
+    </Link>
+  );
+
   return (
     <div className="home-wrapper">
-      {/* Hero */}
-      <section className="hero" aria-labelledby="hero-title">
-        <div className="container hero-grid">
-          <div className="hero-copy animate-fade-in">
-            <p className="hero-eyebrow"><MapPin size={16} /> 296 Đặng Cương · An Dương · Hải Phòng</p>
-            <h1 id="hero-title" className="hero-title">
-              Công nghệ &amp; quảng cáo <span className="text-highlight">tận nơi tại An Dương</span>
-            </h1>
-            <p className="hero-desc">
-              Sửa máy tính, máy in, đổ mực và cho thuê máy photocopy; in bạt, in decal và thi công biển hiệu.
-              Kiểm tra đúng lỗi, báo phương án rõ ràng trước khi làm.
-            </p>
-            <div className="hero-actions">
-              <a href={PHONE_TEL} className="btn-primary btn-lg"><Phone size={20} /> Gọi {PHONE_DISPLAY}</a>
-              <a href={ZALO_URL} target="_blank" rel="noopener noreferrer" className="btn-glass btn-lg">
-                <MessageCircle size={20} /> Nhắn Zalo
-              </a>
-            </div>
-            <ul className="hero-proof" aria-label="Cam kết dịch vụ">
-              <li><BadgeCheck size={18} /> Cửa hàng thật, địa chỉ rõ ràng</li>
-              <li><ClipboardCheck size={18} /> Báo phương án trước khi làm</li>
-              <li><ShieldCheck size={18} /> Hỗ trợ tận nơi quanh An Dương</li>
-            </ul>
-          </div>
-
-          <div className="hero-visual">
-            <figure className="hero-photo">
-              <img
-                src="/luan_storefront.png?v=296"
-                alt="Cửa hàng Nguyễn Thành Luân – Công nghệ & Quảng cáo tại 296 Đặng Cương, An Dương"
-                fetchPriority="high"
-              />
-              <figcaption><Store size={15} /> Cửa hàng tại 296 Đặng Cương</figcaption>
-            </figure>
-
-            <div className="hero-card">
-              <p className="hero-card-title">Cần hỗ trợ gấp?</p>
-              <a href={PHONE_TEL} className="hero-card-row">
-                <span className="hero-card-icon is-orange"><Phone size={20} /></span>
-                <span><small>Gọi hotline</small><strong>{PHONE_DISPLAY}</strong></span>
-              </a>
-              <a href={ZALO_URL} target="_blank" rel="noopener noreferrer" className="hero-card-row">
-                <span className="hero-card-icon is-blue"><MessageCircle size={20} /></span>
-                <span><small>Nhắn tin Zalo</small><strong>{PHONE_DISPLAY}</strong></span>
-              </a>
-              <a href={MAP_URL} target="_blank" rel="noopener noreferrer" className="hero-card-link">
-                <Navigation size={16} /> Chỉ đường đến cửa hàng
-              </a>
-            </div>
+      {/* Đầu trang: ảnh lớn, chữ căn giữa */}
+      <section className="hero-e" aria-labelledby="hero-title">
+        <div className="container hero-e-inner">
+          <p className="hero-e-eyebrow">Sửa chữa · In ấn · Tận nơi quanh An Dương</p>
+          <h1 id="hero-title" className="hero-e-title">
+            Công nghệ <b>&amp; Quảng cáo</b>
+          </h1>
+          <p className="hero-e-sub">296 Đặng Cương · An Dương · Hải Phòng</p>
+          <div className="hero-e-actions">
+            <a href={PHONE_TEL} className="btn-primary btn-lg"><Phone size={20} /> Gọi {PHONE_DISPLAY}</a>
+            <a href={ZALO_URL} target="_blank" rel="noopener noreferrer" className="btn-glass btn-lg">
+              <MessageCircle size={20} /> Nhắn Zalo
+            </a>
           </div>
         </div>
-        <a href="#service-paths" className="hero-scroll">Chọn nhóm dịch vụ <ArrowDown size={16} /></a>
+        <a href="#service-paths" className="hero-e-chev" aria-label="Xem các nhóm dịch vụ">
+          <ChevronDown size={26} />
+        </a>
       </section>
 
-      {/* Hai nhóm dịch vụ */}
-      <section id="service-paths" className="section home-segment-section">
+      {/* Năm nhóm việc chính */}
+      <section id="service-paths" className="section comb-section">
         <div className="container">
           <div className="section-heading">
-            <span className="eyebrow">Đi đúng nhóm dịch vụ bạn cần</span>
-            <h2>Sửa chữa thiết bị hay in ấn quảng cáo?</h2>
-            <p>Mỗi nhóm có trang riêng với dịch vụ, cam kết và cách liên hệ phù hợp — không phải lọc qua nội dung không liên quan.</p>
+            <span className="eyebrow">Chọn việc bạn đang cần</span>
+            <h2>Năm nhóm việc nhận nhiều nhất</h2>
+            <p>Bấm vào từng ô để xem cách làm, cam kết và chi phí dự kiến của nhóm việc đó.</p>
           </div>
-          <div className="home-segment-grid">
-            <Link className="home-segment-card home-segment-repair" to="/dich-vu-sua-chua-thiet-bi-an-duong">
-              <div className="home-segment-media">
-                <img src="/vn_printer_repair.png" alt="Dịch vụ sửa máy tính, máy in tại An Dương" loading="lazy" />
-                <span className="home-segment-tag"><Wrench size={15} /> Sửa chữa thiết bị</span>
-              </div>
-              <div className="home-segment-body">
-                <h3>Máy tính, máy in &amp; photocopy</h3>
-                <p>Kiểm tra lỗi, sửa chữa, đổ mực và cho thuê thiết bị với phương án rõ ràng.</p>
-                <span className="home-segment-cta">Xem dịch vụ sửa chữa <ArrowRight size={18} /></span>
-              </div>
-            </Link>
-            <Link className="home-segment-card home-segment-advertising" to="/dich-vu-in-an-quang-cao-an-duong">
-              <div className="home-segment-media">
-                <img src="/article_banner_printing.png" alt="Dịch vụ in bạt, in decal và biển hiệu tại An Dương" loading="lazy" />
-                <span className="home-segment-tag"><Paintbrush size={15} /> In ấn &amp; quảng cáo</span>
-              </div>
-              <div className="home-segment-body">
-                <h3>In bạt, decal &amp; thi công biển hiệu</h3>
-                <p>Thiết kế, duyệt file, sản xuất và thi công đúng vật liệu cho từng mặt bằng.</p>
-                <span className="home-segment-cta">Xem dịch vụ in ấn <ArrowRight size={18} /></span>
-              </div>
-            </Link>
+          <div className="comb">
+            <div className="comb-row">{COMB_TILES.slice(0, 3).map(renderTile)}</div>
+            <div className="comb-row comb-row-2">{COMB_TILES.slice(3).map(renderTile)}</div>
           </div>
+        </div>
+      </section>
+
+      {/* Giới thiệu ngắn */}
+      <section className="intro-section">
+        <div className="container">
+          <div className="intro-rule" />
+          <p className="intro-text">
+            Hộ kinh doanh Nguyễn Thành Luân nhận sửa máy tính, máy in, máy photocopy, đổ mực tận nơi và
+            in bạt, in decal, thi công biển hiệu quanh An Dương, Hải Phòng. Mọi việc đều được kiểm tra,
+            báo phương án và chi phí trước khi làm.
+          </p>
+          <div className="intro-rule" />
           <ul className="home-trust-band" aria-label="Cam kết dịch vụ">
             <li><CheckCircle2 size={19} /> Địa chỉ thật: 296 Đặng Cương</li>
             <li><CheckCircle2 size={19} /> Báo phương án trước khi làm</li>

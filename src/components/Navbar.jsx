@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { Megaphone, Menu, Phone, Wrench, X } from 'lucide-react';
 import { PHONE_DISPLAY, PHONE_TEL } from '../lib/contact';
 import './Navbar.css';
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(() => typeof window !== 'undefined' && window.scrollY > 8);
 
@@ -25,6 +26,10 @@ const Navbar = () => {
   }, [open]);
 
   const close = () => setOpen(false);
+
+  // Trang chủ có ảnh lớn ngay dưới thanh menu, nên menu nằm đè lên ảnh khi chưa cuộn.
+  const isHome = location.pathname === '/';
+  const overlay = isHome && !scrolled;
 
   const handleDownloadClick = (event) => {
     event.preventDefault();
@@ -46,8 +51,16 @@ const Navbar = () => {
     window.setTimeout(revealDownloads, 0);
   };
 
+  const className = [
+    'site-header',
+    isHome ? 'is-home' : '',
+    overlay ? 'is-overlay' : '',
+    scrolled ? 'is-scrolled' : '',
+    open ? 'is-open' : '',
+  ].filter(Boolean).join(' ');
+
   return (
-    <header className={`site-header${scrolled ? ' is-scrolled' : ''}${open ? ' is-open' : ''}`}>
+    <header className={className}>
       <nav className="container nav-bar" aria-label="Điều hướng chính">
         <Link to="/" className="nav-brand" onClick={close}>
           <span className="brand-mark" aria-hidden="true">

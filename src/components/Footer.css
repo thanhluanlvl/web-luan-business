@@ -1,8 +1,8 @@
 .footer {
   position: relative;
   padding-top: clamp(3rem, 6vw, 4.5rem);
-  color: #c9d6ea;
-  background-color: var(--navy-950);
+  color: #ead7c3;
+  background-color: var(--dark-950);
   background-image: var(--blueprint);
   background-size: var(--blueprint-size);
   scroll-margin-top: var(--header-h);
@@ -112,7 +112,7 @@
 .footer-bottom {
   padding: 1.25rem 0;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  color: #8fa3c0;
+  color: #b49a80;
   font-size: 0.88rem;
 }
 
@@ -162,7 +162,7 @@
     background: rgba(255, 255, 255, 0.96);
     -webkit-backdrop-filter: blur(12px);
     backdrop-filter: blur(12px);
-    box-shadow: 0 -12px 30px -22px rgba(14, 26, 51, 0.55);
+    box-shadow: 0 -12px 30px -22px rgba(59, 36, 22, 0.55);
   }
 
   .mobile-callbar a {
