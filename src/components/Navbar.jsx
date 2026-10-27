@@ -39,7 +39,8 @@ const Navbar = () => {
     const revealDownloads = (attempt = 0) => {
       const section = document.getElementById('downloads');
       if (section) {
-        section.scrollIntoView({ block: 'start' });
+        // Nhảy thẳng: cuộn mượt trên trang dài hay dừng lệch khi ảnh còn đang nạp.
+        section.scrollIntoView({ block: 'start', behavior: 'instant' });
         return;
       }
 
@@ -89,7 +90,7 @@ const Navbar = () => {
             <li><NavLink to="/" end onClick={close}>Trang chủ</NavLink></li>
             <li><NavLink to="/dich-vu-sua-chua-thiet-bi-an-duong" onClick={close}>Sửa chữa</NavLink></li>
             <li><NavLink to="/dich-vu-in-an-quang-cao-an-duong" onClick={close}>In ấn</NavLink></li>
-            <li><a href="https://rustdesk.suamayinanduong.com/hd" onClick={close}>Download</a></li>
+            <li><a href="/#downloads" onClick={handleDownloadClick}>Download</a></li>
             <li><NavLink to="/pdf-tools" onClick={close}>Công cụ PDF</NavLink></li>
             <li><Link to="/#contact" onClick={close}>Liên hệ</Link></li>
           </ul>
