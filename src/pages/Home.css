@@ -541,6 +541,10 @@
   gap: 1rem;
 }
 
+.downloads-grid-more {
+  margin-top: 1rem;
+}
+
 .software-card {
   display: flex;
   flex-direction: column;

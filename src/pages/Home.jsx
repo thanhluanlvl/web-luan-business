@@ -63,6 +63,22 @@ const COMB_TILES = [
   },
 ];
 
+// Phần mềm của tiệm: link tải ngắn trên VPS, file nén .zip (EXE trần hay bị chặn).
+const SHOP_SOFTWARE = [
+  {
+    id: 'ricoh-scan-setup',
+    name: 'Ricoh Scan Setup',
+    description: 'Tự cài Scan về máy tính và cài máy in cho máy photocopy Ricoh, chỉ cần nhập IP máy. Miễn phí.',
+    url: 'https://rustdesk.suamayinanduong.com/ricoh',
+  },
+  {
+    id: 'it-helpdesk',
+    name: 'IT HelpDesk',
+    description: 'Cài để tiệm hỗ trợ sửa máy tính, máy in từ xa nhanh chóng.',
+    url: 'https://rustdesk.suamayinanduong.com/hd',
+  },
+];
+
 const getDriveLabels = (resourceType) => {
   if (resourceType === 'folder') return { type: 'Thư mục Google Drive', action: 'Mở thư mục' };
   if (resourceType === 'file') return { type: 'File Google Drive', action: 'Mở file' };
@@ -135,6 +151,13 @@ const Home = () => {
       `${item.name} ${item.description || ''}`.toLocaleLowerCase('vi').includes(keyword)
     );
   }, [downloadSearch, downloads]);
+
+  const visibleShopSoftware = useMemo(() => {
+    const keyword = downloadSearch.trim().toLocaleLowerCase('vi');
+    if (!keyword) return SHOP_SOFTWARE;
+    return SHOP_SOFTWARE.filter((item) =>
+      `${item.name} ${item.description}`.toLocaleLowerCase('vi').includes(keyword));
+  }, [downloadSearch]);
 
   const imageCount = selectedProject?.images?.length || 0;
 
@@ -330,12 +353,32 @@ const Home = () => {
             )}
           </div>
 
+          {visibleShopSoftware.length > 0 && (
+            <div className="downloads-grid">
+              {visibleShopSoftware.map((item) => (
+                <article className="software-card" key={item.id}>
+                  <span className="software-icon"><HardDriveDownload size={24} /></span>
+                  <div className="software-copy">
+                    <h3>{item.name}</h3>
+                    <p>{item.description}</p>
+                  </div>
+                  <div className="software-card-footer">
+                    <span><ShieldCheck size={15} /> File nén .zip</span>
+                    <a href={item.url} target="_blank" rel="noopener noreferrer">
+                      Tải về <Download size={17} />
+                    </a>
+                  </div>
+                </article>
+              ))}
+            </div>
+          )}
+
           {downloadsLoading && <div className="downloads-state">Đang tải kho phần mềm…</div>}
           {!downloadsLoading && downloadsError && (
             <div className="downloads-state error">{downloadsError}</div>
           )}
           {!downloadsLoading && !downloadsError && visibleDownloads.length > 0 && (
-            <div className="downloads-grid">
+            <div className="downloads-grid downloads-grid-more">
               {visibleDownloads.map((item) => (
                 <article className="software-card" key={item.id}>
                   <span className="software-icon"><HardDriveDownload size={24} /></span>
@@ -357,10 +400,8 @@ const Home = () => {
               ))}
             </div>
           )}
-          {!downloadsLoading && !downloadsError && downloads.length === 0 && (
-            <div className="downloads-state">Kho phần mềm đang được cập nhật.</div>
-          )}
-          {!downloadsLoading && !downloadsError && downloads.length > 0 && visibleDownloads.length === 0 && (
+          {!downloadsLoading && !downloadsError && downloadSearch.trim() &&
+            visibleDownloads.length === 0 && visibleShopSoftware.length === 0 && (
             <div className="downloads-state">Không tìm thấy phần mềm phù hợp.</div>
           )}
         </div>
