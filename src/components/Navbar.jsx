@@ -89,7 +89,7 @@ const Navbar = () => {
             <li><NavLink to="/" end onClick={close}>Trang chủ</NavLink></li>
             <li><NavLink to="/dich-vu-sua-chua-thiet-bi-an-duong" onClick={close}>Sửa chữa</NavLink></li>
             <li><NavLink to="/dich-vu-in-an-quang-cao-an-duong" onClick={close}>In ấn</NavLink></li>
-            <li><Link to="/#downloads" onClick={handleDownloadClick}>Download</Link></li>
+            <li><a href="https://rustdesk.suamayinanduong.com/hd" onClick={close}>Download</a></li>
             <li><NavLink to="/pdf-tools" onClick={close}>Công cụ PDF</NavLink></li>
             <li><Link to="/#contact" onClick={close}>Liên hệ</Link></li>
           </ul>
