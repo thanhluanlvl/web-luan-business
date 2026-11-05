@@ -9,9 +9,15 @@ import {
   ShieldCheck,
 } from 'lucide-react';
 import useSeoMeta from '../lib/useSeoMeta';
+import PhotoGallery from '../components/PhotoGallery';
 import './SegmentLanding.css';
 
 const trustIcons = [MapPin, ClipboardCheck, ShieldCheck, Clock3];
+
+// Liên kết '#…' là neo trong cùng trang (vd nhóm ảnh), còn lại đi qua router.
+const ServiceLink = ({ to, ...props }) => (
+  to.startsWith('#') ? <a href={to} {...props} /> : <Link to={to} {...props} />
+);
 
 const SegmentLanding = ({ landing }) => {
   const pageUrl = `https://suamayinanduong.com/${landing.slug}`;
@@ -116,19 +122,28 @@ const SegmentLanding = ({ landing }) => {
           <div className="segment-service-grid">
             {landing.services.map((service) => (
               <article className="segment-service-card" key={service.title}>
-                <Link to={service.href} className="segment-service-image" aria-label={service.label}>
+                <ServiceLink to={service.href} className="segment-service-image" aria-label={service.label}>
                   <img src={service.image} alt={service.imageAlt} loading="lazy" />
-                </Link>
+                </ServiceLink>
                 <div>
-                  <h3><Link to={service.href}>{service.title}</Link></h3>
+                  <h3><ServiceLink to={service.href}>{service.title}</ServiceLink></h3>
                   <p>{service.description}</p>
-                  <Link className="segment-service-link" to={service.href}>{service.label} <ArrowRight size={17} /></Link>
+                  <ServiceLink className="segment-service-link" to={service.href}>{service.label} <ArrowRight size={17} /></ServiceLink>
                 </div>
               </article>
             ))}
           </div>
         </div>
       </section>
+
+      {landing.gallery && (
+        <PhotoGallery
+          groups={landing.gallery}
+          eyebrow={landing.galleryEyebrow}
+          title={landing.galleryTitle}
+          intro={landing.galleryIntro}
+        />
+      )}
 
       <section className="segment-proof section">
         <div className="container segment-proof-grid">

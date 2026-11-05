@@ -24,7 +24,7 @@ import './Home.css';
 
 const API_BASE = import.meta.env.DEV ? 'http://localhost:3001' : '';
 
-/* Năm nhóm việc chính, xếp tổ ong: ba ô trên, hai ô dưới. */
+/* Sáu nhóm việc chính, xếp tổ ong: ba ô, hai ô, một ô. */
 const COMB_TILES = [
   {
     to: '/sua-may-in-an-duong',
@@ -60,6 +60,13 @@ const COMB_TILES = [
     cta: 'Xem dịch vụ',
     image: '/article_banner_printing.png',
     alt: 'Máy in khổ lớn đang in bạt quảng cáo',
+  },
+  {
+    to: '/do-the-thao-giai-bong-da',
+    label: 'Đồ thể thao & giải bóng đá',
+    cta: 'Xem mẫu',
+    image: '/the-thao/trao-giai-04.webp',
+    alt: 'Cúp, huy chương, bóng và cờ lưu niệm cho giải bóng đá',
   },
 ];
 
@@ -219,17 +226,18 @@ const Home = () => {
         </a>
       </section>
 
-      {/* Năm nhóm việc chính */}
+      {/* Sáu nhóm việc chính */}
       <section id="service-paths" className="section comb-section">
         <div className="container">
           <div className="section-heading">
             <span className="eyebrow">Chọn việc bạn đang cần</span>
-            <h2>Năm nhóm việc nhận nhiều nhất</h2>
+            <h2>Sáu nhóm việc nhận nhiều nhất</h2>
             <p>Bấm vào từng ô để xem cách làm, cam kết và chi phí dự kiến của nhóm việc đó.</p>
           </div>
           <div className="comb">
             <div className="comb-row">{COMB_TILES.slice(0, 3).map(renderTile)}</div>
-            <div className="comb-row comb-row-2">{COMB_TILES.slice(3).map(renderTile)}</div>
+            <div className="comb-row comb-row-2">{COMB_TILES.slice(3, 5).map(renderTile)}</div>
+            <div className="comb-row comb-row-2">{COMB_TILES.slice(5).map(renderTile)}</div>
           </div>
         </div>
       </section>

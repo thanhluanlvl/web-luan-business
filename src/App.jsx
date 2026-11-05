@@ -10,6 +10,7 @@ import SegmentLanding from './pages/SegmentLanding';
 import { printerArticles } from './data/printerArticles';
 import { advertisingArticles } from './data/advertisingArticles';
 import { advertisingLanding, repairLanding } from './data/segmentLandings';
+import { sportsLanding } from './data/sportsLanding';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Chatbot from './components/Chatbot';
@@ -37,6 +38,7 @@ function App() {
         <Route path="/cho-thue-may-photocopy-an-duong" element={<PhotocopierRental />} />
         <Route path={`/${repairLanding.slug}`} element={<SegmentLanding landing={repairLanding} />} />
         <Route path={`/${advertisingLanding.slug}`} element={<SegmentLanding landing={advertisingLanding} />} />
+          <Route path={`/${sportsLanding.slug}`} element={<SegmentLanding landing={sportsLanding} />} />
         <Route path="/kien-thuc-may-in-an-duong" element={<PrinterKnowledge />} />
         <Route path="/kien-thuc-in-an-quang-cao-an-duong" element={<AdvertisingKnowledge />} />
         {printerArticles.map((article) => (

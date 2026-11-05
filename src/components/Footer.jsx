@@ -6,6 +6,7 @@ import './Footer.css';
 const serviceLinks = [
   { to: '/dich-vu-sua-chua-thiet-bi-an-duong', label: 'Sửa chữa thiết bị tại An Dương' },
   { to: '/dich-vu-in-an-quang-cao-an-duong', label: 'In ấn & quảng cáo tại An Dương' },
+  { to: '/do-the-thao-giai-bong-da', label: 'Đồ thể thao & giải bóng đá' },
   { to: '/cho-thue-may-photocopy-an-duong', label: 'Cho thuê máy photocopy' },
   { to: '/kien-thuc-may-in-an-duong', label: 'Kiến thức xử lý lỗi máy in' },
   { to: '/kien-thuc-in-an-quang-cao-an-duong', label: 'Kiến thức in ấn & biển hiệu' },

@@ -320,3 +320,20 @@
     font-size: 1rem;
   }
 }
+
+/* Menu thêm mục "Thể thao": thu gọn khoảng cách trên màn hình máy tính vừa,
+   giữ "Quản lý" trên một dòng. */
+.nav-admin {
+  white-space: nowrap;
+}
+
+@media (min-width: 1181px) and (max-width: 1480px) {
+  .nav-menu {
+    gap: 0.5rem;
+  }
+
+  .nav-links a {
+    padding: 0.45rem 0.55rem;
+    font-size: 0.9rem;
+  }
+}
