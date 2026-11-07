@@ -79,6 +79,12 @@ const SHOP_SOFTWARE = [
     url: 'https://rustdesk.suamayinanduong.com/ricoh',
   },
   {
+    id: 'ricoh-counter-agent',
+    name: 'Agent đọc counter Ricoh',
+    description: 'Tự đọc số counter máy photocopy Ricoh trong mạng LAN và gửi về tiệm mỗi ngày. Cài bằng mật khẩu do tiệm cấp.',
+    url: 'https://rustdesk.suamayinanduong.com/counter',
+  },
+  {
     id: 'it-helpdesk',
     name: 'IT HelpDesk',
     description: 'Cài để tiệm hỗ trợ sửa máy tính, máy in từ xa nhanh chóng.',
